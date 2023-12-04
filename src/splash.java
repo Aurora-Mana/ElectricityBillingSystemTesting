@@ -15,8 +15,9 @@ public class splash
             try
             {
                 Thread.sleep(10);
+            } catch (Exception e){
+                e.printStackTrace();
             }
-            catch (Exception e){}
         }
 
 

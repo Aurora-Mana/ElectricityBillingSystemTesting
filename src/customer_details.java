@@ -46,7 +46,9 @@ public class customer_details extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent ae){
         try{
             t1.print();
-        }catch(Exception e){}
+        } catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args){
