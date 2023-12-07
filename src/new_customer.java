@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 
 public class new_customer extends JFrame implements ActionListener{
@@ -75,31 +78,33 @@ public class new_customer extends JFrame implements ActionListener{
         b2.addActionListener(this);
 
     }
-    public void actionPerformed(ActionEvent ae){
+    public void actionPerformed(ActionEvent ae) {
+        String name = t1.getText();
+        String meterNo = t2.getText();
+        String address = t3.getText();
+        String state = t4.getText();
+        String city = t5.getText();
+        String email = t6.getText();
+        String phoneNumber = t7.getText();
 
-        String a = t1.getText();
-        String c = t2.getText();
-        String d = t3.getText();
-        String e = t4.getText();
-        String f = t5.getText();
-        String g = t6.getText();
-        String h = t7.getText();
+        // Prepare the data to be written to the file
+        String customerInfo = "Name: " + name + ", Meter No: " + meterNo + ", Address: " + address +
+                ", State: " + state + ", City: " + city + ", Email: " + email + ", Phone Number: " + phoneNumber;
 
-        String q1 = "insert into emp values('"+a+"','"+c+"','"+d+"','"+e+"','"+f+"','"+g+"','"+h+"')";
+        try {
+            // Writing data to a file named "customer_info.txt"
+            BufferedWriter writer = new BufferedWriter(new FileWriter("customer_info.txt", true));
+            writer.write(customerInfo);
+            writer.newLine();
+            writer.close();
 
-        try{
-            conn c1 = new conn();
-            c1.s.executeUpdate(q1);
-            JOptionPane.showMessageDialog(null,"Employee Created");
+            JOptionPane.showMessageDialog(null, "Customer Information Recorded Successfully");
             this.setVisible(false);
 
-
-        }catch(Exception ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
-
     }
-
 
     public static void main(String[] args){
         new new_customer().setVisible(true);

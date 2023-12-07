@@ -1,9 +1,12 @@
 
 
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.sql.*;
 
 public class login extends JFrame implements ActionListener
@@ -70,25 +73,36 @@ public class login extends JFrame implements ActionListener
 
     public void actionPerformed(ActionEvent ae){
 
-        try{
-            conn c1 = new conn();
-            String a  = tf1.getText();
-            String b  = pf2.getText();
-            String q  = "select * from login where username = '"+a+"' and password = '"+b+"'";
-            ResultSet rs = c1.s.executeQuery(q);
-            if(rs.next()){
+        try {
+            String username = tf1.getText();
+            String password = pf2.getText();
+            boolean userFound = false;
+
+            BufferedReader reader = new BufferedReader(new FileReader("user_info.txt"));
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] userData = line.split(" ");
+                if (userData.length >= 2 && userData[0].equals(username) && userData[1].equals(password)) {
+                    userFound = true;
+                    break;
+                }
+            }
+            reader.close();
+
+            if (userFound) {
                 new Project().setVisible(true);
                 this.setVisible(false);
-
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Invalid login");
                 setVisible(false);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("error: "+e);
+            System.out.println("Error: " + e);
         }
     }
+
 
     public static void main(String[] args){
         new login().setVisible(true);

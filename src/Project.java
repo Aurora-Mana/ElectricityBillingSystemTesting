@@ -230,10 +230,12 @@ public class Project extends JFrame implements ActionListener{
         }else if(msg.equals("Calculator")){
             try{
                 Runtime.getRuntime().exec("calc.exe");
-            }catch(Exception e){ }
+            } catch(Exception e){
+                e.printStackTrace();
+            }
         }else if(msg.equals("Web Browser")){
             try{
-                Runtime.getRuntime().exec("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe");
+                Runtime.getRuntime().exec("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe");
             }catch(Exception e){
                 e.printStackTrace();
             }

@@ -1,10 +1,12 @@
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import java.sql.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
-public class calculate_bill extends JFrame implements ActionListener
-{
+public class calculate_bill extends JFrame implements ActionListener {
     JLabel l1,l2,l3,l4,l5;
     JTextField t1;
     Choice c1,c2;
@@ -94,29 +96,28 @@ public class calculate_bill extends JFrame implements ActionListener
         setSize(650,500);
         setLocation(350,220);
     }
-    public void actionPerformed(ActionEvent ae){
+
+    public void actionPerformed(ActionEvent ae) {
         String a = c1.getSelectedItem();
         String b = t1.getText();
         String c = c2.getSelectedItem();
 
         int p1 = Integer.parseInt(b);
+        int p2 = p1 * 7;
+        int p3 = p2 + 50 + 12 + 102 + 20 + 50;
 
-        int p2 = p1*7;
-        int p3 = p2+50+12+102+20+50;
+        try {
+            // Writing data to a file named "bill_info.txt"
+            BufferedWriter writer = new BufferedWriter(new FileWriter("bill_info.txt", true));
+            writer.write("Meter No: " + a + ", Month: " + c + ", Units Consumed: " + b + ", Total Charges: " + p3);
+            writer.newLine();
+            writer.close();
 
-        String q = "insert into bill values('"+a+"','"+c+"','"+b+"','"+p3+"')";
-
-        try{
-            conn c1 = new conn();
-            c1.s.executeUpdate(q);
-            JOptionPane.showMessageDialog(null,"Bill Updated");
-        }catch(Exception aee){
-            aee.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Bill Updated");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-
     }
-
 
     public static void main(String[] args){
         new calculate_bill().setVisible(true);

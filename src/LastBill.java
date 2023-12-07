@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.sql.*;
 
 public class LastBill extends JFrame implements ActionListener
@@ -51,34 +53,33 @@ public class LastBill extends JFrame implements ActionListener
     }
     public void actionPerformed(ActionEvent ae){
         try{
-            conn c = new conn();
+            BufferedReader reader = new BufferedReader(new FileReader("bill_info.txt"));
+            String line;
+            String meterNumber = c1.getSelectedItem();
+            String lastBill = "";
+            boolean billFound = false;
 
-            ResultSet rs = c.s.executeQuery("select * from emp where meter_number="+c1.getSelectedItem());
+            t1.setText("");
 
-            if(rs.next()){
-                t1.append("\n    Customer Name:"+rs.getString("name"));
-                t1.append("\n    Meter Number:  "+rs.getString("meter_number"));
-                t1.append("\n    Address:            "+rs.getString("address"));
-                t1.append("\n    State:                 "+rs.getString("state"));
-                t1.append("\n    City:                   "+rs.getString("city"));
-                t1.append("\n    Email:                "+rs.getString("email"));
-                t1.append("\n    Phone Number  "+rs.getString("phone"));
-                t1.append("\n-------------------------------------------------------------");
-                t1.append("\n");
+            while((line = reader.readLine())!=null){
+                String[] billData = line.split(",");
+                if(billData[0].startsWith("Meter No: " + meterNumber)){
+                    billFound = true;
+                    lastBill = line;
+                }
             }
+            reader.close();
 
-            t1.append("Details of the Last Bills\n\n\n");
-
-            rs = c.s.executeQuery("select * from bill where meter_number="+c1.getSelectedItem());
-
-            while(rs.next()){
-                t1.append("       "+ rs.getString("month") + "           " +rs.getString("amount") + "\n");
+            if (billFound) {
+                t1.setText("Details of the Last Bill\n\n\n");
+                String[] lastBillData = lastBill.split(", ");
+                for (String data : lastBillData) {
+                    t1.append(data + "\n");
+                }
+                t1.append("---------------------------------------------------------------\n");
+            } else {
+                t1.setText("No bill found for the selected criteria.");
             }
-
-
-
-
-
 
         }catch(Exception e){
             e.printStackTrace();
