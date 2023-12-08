@@ -9,8 +9,8 @@ public class Project extends JFrame implements ActionListener{
         setSize(1500,800);
 
         /* Adding background image */
-        ImageIcon ic =  new ImageIcon(ClassLoader.getSystemResource("images/main.jpg"));
-        Image i3 = ic.getImage().getScaledInstance(1420, 720,Image.SCALE_DEFAULT);
+        ImageIcon ic =  new ImageIcon(ClassLoader.getSystemResource("images/main1.jpg"));
+        Image i3 = ic.getImage().getScaledInstance(1350, 620,Image.SCALE_DEFAULT);
         ImageIcon icc3 = new ImageIcon(i3);
         JLabel l1 = new JLabel(icc3);
         add(l1);
