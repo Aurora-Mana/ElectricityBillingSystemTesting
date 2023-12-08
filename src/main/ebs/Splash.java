@@ -1,6 +1,8 @@
+package main.ebs;
+
 import java.awt.*;
 import javax.swing.*;
-public class splash
+public class Splash
 {
     public static void main(String args[])
     {
@@ -44,7 +46,7 @@ public class splash
             {
                 Thread.sleep(7000);
                 this.setVisible(false);
-                new login().setVisible(true);
+                new Login().setVisible(true);
             }
             catch (Exception e)
             {

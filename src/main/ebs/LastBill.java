@@ -1,9 +1,10 @@
+package main.ebs;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.sql.*;
 
 public class LastBill extends JFrame implements ActionListener
 {

@@ -1,3 +1,5 @@
+package main.ebs;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -210,16 +212,16 @@ public class Project extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent ae){
         String msg = ae.getActionCommand();
         if(msg.equals("Customer Details")){
-            new customer_details().setVisible(true);
+            new CustomerDetails().setVisible(true);
 
         }else if(msg.equals("New Customer")){
-            new new_customer().setVisible(true);
+            new NewCustomer().setVisible(true);
 
         }else if(msg.equals("Calculate Bill")){
-            new calculate_bill().setVisible(true);
+            new CalculateBill().setVisible(true);
 
         }else if(msg.equals("Pay Bill")){
-            new pay_bill().setVisible(true);
+            new PayBill().setVisible(true);
 
         }else if(msg.equals("Notepad")){
             try{
@@ -242,7 +244,7 @@ public class Project extends JFrame implements ActionListener{
         }else if(msg.equals("Exit")){
             System.exit(0);
         }else if(msg.equals("Generate Bill")){
-            new generate_bill().setVisible(true);
+            new GenerateBill().setVisible(true);
 
         }else if(msg.equals("Last Bill")){
             new LastBill().setVisible(true);

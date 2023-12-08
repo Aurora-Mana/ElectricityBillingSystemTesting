@@ -1,16 +1,17 @@
+package main.ebs;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.*;
 
-public class new_customer extends JFrame implements ActionListener{
+public class NewCustomer extends JFrame implements ActionListener{
     JLabel l1,l2,l3,l4,l5,l6,l7,l8;
     JTextField t1,t2,t3,t4,t5,t6,t7;
     JButton b1,b2;
-    new_customer(){
+    NewCustomer(){
         super("Add Customer");
         setLocation(350,200);
         setSize(650,600);
@@ -107,6 +108,6 @@ public class new_customer extends JFrame implements ActionListener{
     }
 
     public static void main(String[] args){
-        new new_customer().setVisible(true);
+        new NewCustomer().setVisible(true);
     }
 }

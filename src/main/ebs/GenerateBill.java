@@ -1,18 +1,19 @@
+package main.ebs;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.sql.*;
 
-public class generate_bill extends JFrame implements ActionListener {
+public class GenerateBill extends JFrame implements ActionListener {
     JLabel l1;
     JTextArea t1;
     JButton b1;
     Choice c1, c2;
     JPanel p1;
 
-    generate_bill() {
+    GenerateBill() {
         setSize(500, 900);
         setLayout(new BorderLayout());
 
@@ -112,6 +113,6 @@ public class generate_bill extends JFrame implements ActionListener {
 
 
     public static void main(String[] args) {
-        new generate_bill().setVisible(true);
+        new GenerateBill().setVisible(true);
     }
 }

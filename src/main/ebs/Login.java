@@ -1,4 +1,4 @@
-
+package main.ebs;
 
 
 import java.awt.*;
@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-public class login extends JFrame implements ActionListener
+public class Login extends JFrame implements ActionListener
 {
     JLabel l1,l2,l3;
     JTextField tf1;
@@ -16,7 +16,7 @@ public class login extends JFrame implements ActionListener
     JButton b1,b2;
     JPanel p1,p2,p3,p4;
 
-    login()
+    Login()
     {
         super("Login Page");
         l1=new JLabel("User Name");
@@ -93,7 +93,7 @@ public class login extends JFrame implements ActionListener
                 new Project().setVisible(true);
                 this.setVisible(false);
             } else {
-                JOptionPane.showMessageDialog(null, "Invalid login");
+                JOptionPane.showMessageDialog(null, "Invalid Login");
                 setVisible(false);
             }
         } catch (Exception e) {
@@ -104,7 +104,7 @@ public class login extends JFrame implements ActionListener
 
 
     public static void main(String[] args){
-        new login().setVisible(true);
+        new Login().setVisible(true);
     }
 
 }

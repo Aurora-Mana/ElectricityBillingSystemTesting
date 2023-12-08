@@ -1,3 +1,5 @@
+package main.ebs;
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -6,13 +8,13 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class calculate_bill extends JFrame implements ActionListener {
+public class CalculateBill extends JFrame implements ActionListener {
     JLabel l1,l2,l3,l4,l5;
     JTextField t1;
     Choice c1,c2;
     JButton b1,b2;
     JPanel p;
-    calculate_bill(){
+    CalculateBill(){
 
         p = new JPanel();
         p.setLayout(new GridLayout(4,2,30,30));
@@ -120,6 +122,6 @@ public class calculate_bill extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args){
-        new calculate_bill().setVisible(true);
+        new CalculateBill().setVisible(true);
     }
 }

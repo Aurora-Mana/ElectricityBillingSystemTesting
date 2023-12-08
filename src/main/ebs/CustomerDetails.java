@@ -1,10 +1,11 @@
-import java.awt.*;
+package main.ebs;
+
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-public class customer_details extends JFrame implements ActionListener {
+public class CustomerDetails extends JFrame implements ActionListener {
 
     JTable t1;
     JButton b1;
@@ -12,7 +13,7 @@ public class customer_details extends JFrame implements ActionListener {
     String y[][] = new String[20][8];
     int i = 0, j = 0;
 
-    customer_details() {
+    CustomerDetails() {
         super("Customer Details");
         setSize(1200, 650);
         setLocation(200, 200);
@@ -57,6 +58,6 @@ public class customer_details extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new customer_details().setVisible(true);
+        new CustomerDetails().setVisible(true);
     }
 }

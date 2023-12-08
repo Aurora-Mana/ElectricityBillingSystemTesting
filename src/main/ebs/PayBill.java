@@ -1,9 +1,10 @@
+package main.ebs;
+
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 
-public class pay_bill extends JFrame{
-    pay_bill(){
+public class PayBill extends JFrame{
+    PayBill(){
         JEditorPane j = new JEditorPane();
         j.setEditable(false);
 
@@ -23,6 +24,6 @@ public class pay_bill extends JFrame{
         setVisible(true);
     }
     public static void main(String[] args){
-        new pay_bill().setVisible(true);
+        new PayBill().setVisible(true);
     }
 }
