@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 public class PayBill extends JFrame{
-    PayBill(){
+    public PayBill(){
         JEditorPane j = new JEditorPane();
         j.setEditable(false);
 
