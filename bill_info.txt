@@ -1,3 +1,2 @@
-Meter No: 1001, Month: April, Units Consumed: 50, Total Charges: 584
-Meter No: 1001, Month: April, Units Consumed: 50, Total Charges: 584
-Meter No: 1001, Month: April, Units Consumed: 50, Total Charges: 584
+
+Meter No: 1001, Month: January, Units Consumed: 213, Total Charges: 1725

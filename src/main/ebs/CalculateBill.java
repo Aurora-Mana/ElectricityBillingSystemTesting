@@ -4,22 +4,22 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class CalculateBill extends JFrame implements ActionListener {
     JLabel l1,l2,l3,l4,l5;
-    JTextField t1;
-    Choice c1,c2;
+    public JTextField t1;
+    public Choice c1, c2;
     JButton b1,b2;
     JPanel p;
-    CalculateBill(){
+
+    public CalculateBill(){
 
         p = new JPanel();
         p.setLayout(new GridLayout(4,2,30,30));
         p.setBackground(Color.WHITE);
 
+        //labels
         l1 = new JLabel("Calculate Electricity Bill");
         l2 = new JLabel("Meter No");
         l3 = new JLabel("Units Cosumed");
@@ -27,6 +27,7 @@ public class CalculateBill extends JFrame implements ActionListener {
 
         t1 = new JTextField();
 
+        //choices for the meter number
         c1 = new Choice();
         c1.add("1001");
         c1.add("1002");
@@ -39,6 +40,7 @@ public class CalculateBill extends JFrame implements ActionListener {
         c1.add("1009");
         c1.add("1010");
 
+        //choices for the month
         c2 = new Choice();
         c2.add("January");
         c2.add("February");
@@ -53,8 +55,10 @@ public class CalculateBill extends JFrame implements ActionListener {
         c2.add("November");
         c2.add("December");
 
+        //buttons
         b1 = new JButton("Submit");
         b2 = new JButton("Cancel");
+
 
         b1.setBackground(Color.BLACK);
         b1.setForeground(Color.WHITE);
@@ -99,29 +103,81 @@ public class CalculateBill extends JFrame implements ActionListener {
         setLocation(350,220);
     }
 
+    //get value of meter number selected
+    public int getMeterNumber() {
+        return Integer.parseInt(c1.getSelectedItem());
+    }
+
+    //get value of month selected
+    public String getMonth(){
+        return c2.getSelectedItem();
+    }
+
+    public void setMeterNumber(String meterNumber) {
+        c1.select(meterNumber);
+    }
+
+    // Set Units Consumed
+    public void setUnitsConsumed(String unitsConsumed) {
+        t1.setText(unitsConsumed);
+    }
+
+    // Set Month
+    public void setMonth(String month) {
+        c2.select(month);
+    }
+
+
+
+
     public void actionPerformed(ActionEvent ae) {
+        ///string for choice of meter number
         String a = c1.getSelectedItem();
+        ///string for the unit consumed
         String b = t1.getText();
+        ///string for storing the choice for month
         String c = c2.getSelectedItem();
 
+        ///we convert the string containing unit consumed into int
         int p1 = Integer.parseInt(b);
+        ///calculations to find how much is the bill
         int p2 = p1 * 7;
         int p3 = p2 + 50 + 12 + 102 + 20 + 50;
 
         try {
             // Writing data to a file named "bill_info.txt"
             BufferedWriter writer = new BufferedWriter(new FileWriter("bill_info.txt", true));
+            //meter number for this month will the the value calculated in p3
             writer.write("Meter No: " + a + ", Month: " + c + ", Units Consumed: " + b + ", Total Charges: " + p3);
             writer.newLine();
             writer.close();
-
+            ///when finished message bill updated will be shown
             JOptionPane.showMessageDialog(null, "Bill Updated");
         } catch (IOException e) {
+            //in case not
             e.printStackTrace();
         }
+
+
+    }
+
+    // Method to get the content of a file
+    public String getFileContent(String fileName) {
+        StringBuilder content = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading file or file is empty: " + e.getMessage());
+        }
+        return content.toString();
     }
 
     public static void main(String[] args){
+
         new CalculateBill().setVisible(true);
     }
+
 }

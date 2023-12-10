@@ -88,6 +88,7 @@ public class LastBill extends JFrame implements ActionListener
     }
 
     public static void main(String[] args){
+
         new LastBill().setVisible(true);
     }
 }
