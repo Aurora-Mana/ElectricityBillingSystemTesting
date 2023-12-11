@@ -8,11 +8,24 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class NewCustomer extends JFrame implements ActionListener{
-    JLabel l1,l2,l3,l4,l5,l6,l7,l8;
-    JTextField t1,t2,t3,t4,t5,t6,t7;
-    JButton b1,b2;
-    NewCustomer(){
+    public JLabel l1,l2,l3,l4,l5,l6,l7,l8;
+    public JTextField t1,t2,t3,t4,t5,t6,t7;
+    public JButton b1,b2;
+
+    private final BufferedWriter writer;
+
+    public NewCustomer() throws IOException {
+            this(new BufferedWriter(new FileWriter("customer_info.text", true)));
+
+    }
+
+    public NewCustomer(BufferedWriter writer) {
         super("Add Customer");
+        this.writer = writer;
+        initialize();
+    }
+
+    public void initialize() {
         setLocation(350,200);
         setSize(650,600);
 
@@ -72,29 +85,17 @@ public class NewCustomer extends JFrame implements ActionListener{
 
 
         add(l8,"West");
-        //for changing the color of the whole 
+        //for changing the color of the whole
         getContentPane().setBackground(Color.WHITE);
 
         b1.addActionListener(this);
         b2.addActionListener(this);
-
     }
-    public void actionPerformed(ActionEvent ae) {
-        String name = t1.getText();
-        String meterNo = t2.getText();
-        String address = t3.getText();
-        String state = t4.getText();
-        String city = t5.getText();
-        String email = t6.getText();
-        String phoneNumber = t7.getText();
 
-        // Prepare the data to be written to the file
-        String customerInfo = "Name: " + name + ", Meter No: " + meterNo + ", Address: " + address +
-                ", State: " + state + ", City: " + city + ", Email: " + email + ", Phone Number: " + phoneNumber;
+    public void actionPerformed(ActionEvent ae) {
+        String customerInfo = getCustomerInfo();
 
         try {
-            // Writing data to a file named "customer_info.txt"
-            BufferedWriter writer = new BufferedWriter(new FileWriter("customer_info.txt", true));
             writer.write(customerInfo);
             writer.newLine();
             writer.close();
@@ -107,7 +108,27 @@ public class NewCustomer extends JFrame implements ActionListener{
         }
     }
 
+    public String getCustomerInfo() {
+        String name = t1.getText();
+        String meterNo = t2.getText();
+        String address = t3.getText();
+        String state = t4.getText();
+        String city = t5.getText();
+        String email = t6.getText();
+        String phoneNumber = t7.getText();
+
+        // Prepare the data to be written to the file
+        return "Name: " + name + ", Meter No: " + meterNo + ", Address: " + address +
+                ", State: " + state + ", City: " + city + ", Email: " + email + ", Phone Number: " + phoneNumber;
+    }
+
     public static void main(String[] args){
-        new NewCustomer().setVisible(true);
+        SwingUtilities.invokeLater(() -> {
+            try {
+                new NewCustomer().setVisible(true);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

@@ -2,6 +2,7 @@ package main.ebs;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import javax.swing.*;
 
 public class Project extends JFrame implements ActionListener{
@@ -215,7 +216,11 @@ public class Project extends JFrame implements ActionListener{
             new CustomerDetails().setVisible(true);
 
         }else if(msg.equals("New Customer")){
-            new NewCustomer().setVisible(true);
+            try {
+                new NewCustomer().setVisible(true);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
         }else if(msg.equals("Calculate Bill")){
             new CalculateBill().setVisible(true);
