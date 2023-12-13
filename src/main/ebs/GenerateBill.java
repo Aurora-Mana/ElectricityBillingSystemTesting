@@ -1,5 +1,4 @@
 package main.ebs;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -7,13 +6,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class GenerateBill extends JFrame implements ActionListener {
-    JLabel l1;
-    JTextArea t1;
-    JButton b1;
-    Choice c1, c2;
-    JPanel p1;
+    private JLabel l1;
+    public JTextArea t1;
+    private JButton b1;
+    private Choice c1, c2;
+    private JPanel p1;
 
-    GenerateBill() {
+
+    public GenerateBill() {
         setSize(500, 900);
         setLayout(new BorderLayout());
 
@@ -67,6 +67,23 @@ public class GenerateBill extends JFrame implements ActionListener {
         setLocation(350, 40);
     }
 
+    public JButton getB1() {
+        return b1;
+    }
+
+    public Choice getC1(){
+        return c1;
+    }
+
+    public Choice getC2(){
+        return c2;
+    }
+
+    public JTextArea getT1(){
+        return t1;
+    }
+
+
     public void actionPerformed(ActionEvent ae) {
         try {
 
@@ -116,4 +133,6 @@ public class GenerateBill extends JFrame implements ActionListener {
 
         new GenerateBill().setVisible(true);
     }
+
+
 }

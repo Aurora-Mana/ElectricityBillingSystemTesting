@@ -5,15 +5,38 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
 public class LastBill extends JFrame implements ActionListener
 {
-    JLabel l1;
-    JTextArea t1;
-    JButton b1;
-    Choice c1;
-    JPanel p1;
-    LastBill(){
+    private JLabel l1;
+    private JTextArea t1;
+    private JButton b1;
+    private Choice c1;
+    private JPanel p1;
+
+    private JLabel getL1(){
+        return l1;
+    }
+
+    public  JTextArea getT1(){
+      return t1;
+    }
+
+    public JButton getB1(){
+        return b1;
+    }
+
+    public Choice getC1(){
+        return c1;
+    }
+
+    public JPanel getP1(){
+        return p1;
+    }
+
+
+    public LastBill(){
         setSize(500,900);
         setLayout(new BorderLayout());
 
@@ -52,40 +75,63 @@ public class LastBill extends JFrame implements ActionListener
 
         setLocation(350,40);
     }
-    public void actionPerformed(ActionEvent ae){
-        try{
+
+
+    public void actionPerformed(ActionEvent ae) {
+        try {
             BufferedReader reader = new BufferedReader(new FileReader("bill_info.txt"));
-            String line;
             String meterNumber = c1.getSelectedItem();
-            String lastBill = "";
-            boolean billFound = false;
-
-            t1.setText("");
-
-            while((line = reader.readLine())!=null){
-                String[] billData = line.split(",");
-                if(billData[0].startsWith("Meter No: " + meterNumber)){
-                    billFound = true;
-                    lastBill = line;
-                }
-            }
+            String lastBill = findLastBill(reader, meterNumber);
             reader.close();
 
-            if (billFound) {
-                t1.setText("Details of the Last Bill\n\n\n");
-                String[] lastBillData = lastBill.split(", ");
-                for (String data : lastBillData) {
-                    t1.append(data + "\n");
-                }
-                t1.append("---------------------------------------------------------------\n");
-            } else {
-                t1.setText("No bill found for the selected criteria.");
-            }
-
-        }catch(Exception e){
+            updateTextArea(lastBill);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    public String findLastBill(BufferedReader reader, String meterNumber) throws IOException {
+        String line;
+        boolean billFound = false;
+        String lastBill = "";
+
+        while ((line = reader.readLine()) != null) {
+            String[] billData = line.split(",");
+            if (isMatchingMeterNumber(billData[0], meterNumber)) {
+                billFound = true;
+                lastBill = line;
+                break;
+            }
+        }
+
+        return billFound ? lastBill : null;
+    }
+
+    public boolean isMatchingMeterNumber(String billData, String meterNumber) {
+        return billData.toLowerCase().startsWith("meter no: " + meterNumber.toLowerCase());
+    }
+
+    public void updateTextArea(String lastBill) {
+        if (lastBill != null) {
+            displayLastBillDetails(lastBill);
+        } else {
+            displayNoBillFoundMessage();
+        }
+    }
+
+    private void displayLastBillDetails(String lastBill) {
+        t1.setText("Details of the Last Bill\n\n\n");
+        String[] lastBillData = lastBill.split(", ");
+        for (String data : lastBillData) {
+            t1.append(data + "\n");
+        }
+        t1.append("---------------------------------------------------------------\n");
+    }
+
+    private void displayNoBillFoundMessage() {
+        t1.setText("No bill found for the selected criteria.");
+    }
+
 
     public static void main(String[] args){
 

@@ -10,8 +10,16 @@ public class CalculateBill extends JFrame implements ActionListener {
     JLabel l1,l2,l3,l4,l5;
     public JTextField t1;
     public Choice c1, c2;
-    JButton b1,b2;
+    private JButton b1,b2;
     JPanel p;
+
+    public JButton getB1(){
+        return b1;
+    }
+
+    public JButton getB2(){
+        return b2;
+    }
 
     public CalculateBill(){
 
@@ -105,25 +113,30 @@ public class CalculateBill extends JFrame implements ActionListener {
 
     //get value of meter number selected
     public int getMeterNumber() {
+
         return Integer.parseInt(c1.getSelectedItem());
     }
 
     //get value of month selected
     public String getMonth(){
+
         return c2.getSelectedItem();
     }
 
     public void setMeterNumber(String meterNumber) {
+
         c1.select(meterNumber);
     }
 
     // Set Units Consumed
     public void setUnitsConsumed(String unitsConsumed) {
+
         t1.setText(unitsConsumed);
     }
 
     // Set Month
     public void setMonth(String month) {
+
         c2.select(month);
     }
 

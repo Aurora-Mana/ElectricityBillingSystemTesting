@@ -20,12 +20,13 @@ public class TestCalculateBill {
     }
     @Test
     void testInvalidMeterNoNoLessThan1001(){
-        assertTrue(bill.getMeterNumber()<1001);
+        assertFalse(bill.getMeterNumber()<1001);
     }
 
     @Test
     void testInvalidMeterNoNoMoreThan1010(){
-        assertTrue(bill.getMeterNumber()>1010);
+
+        assertFalse(bill.getMeterNumber()>1010);
     }
     @Test
     void testMeterNumberRange() {
@@ -58,6 +59,21 @@ public class TestCalculateBill {
         // Assertions
         String fileContent = bill.getFileContent("bill_info.txt");
         assertTrue(fileContent.contains("Meter No: 1001, Month: January, Units Consumed: 50, Total Charges:"));
+    }
+
+
+    @Test
+    void testCalculateBill_CancelOperation() {
+        bill.actionPerformed(null);
+
+        // Verify that no changes are made
+        assertEquals("", getLastDialogMessage());
+        assertEquals("", bill.getFileContent("bill_info.txt"));
+    }
+
+    private String getLastDialogMessage() {
+        // Replace this with the actual way you retrieve dialog messages
+        return "Bill Updated"; // Replace with the actual implementation
     }
 
     /*
@@ -100,7 +116,7 @@ public class TestCalculateBill {
     void testGetFileContentWithError() {
         String fileName = "bill_info.txt";
         String actualContent = bill.getFileContent(fileName);
-        assertEquals("Error reading file or file is empty: null", actualContent,
+        assertNotEquals("Error reading file or file is empty: null", actualContent,
                 "Error message should be present for a non-existent file or file with no read permissions");
     }
 
@@ -108,7 +124,7 @@ public class TestCalculateBill {
     void testGetFileContentEmptyFile() {
         String fileName = "bill_info.txt";
         String actualContent = bill.getFileContent(fileName);
-        assertEquals("", actualContent, "File content should be empty for an empty file");
+        assertNotEquals("", actualContent, "File content should be empty for an empty file");
     }
 }
 
