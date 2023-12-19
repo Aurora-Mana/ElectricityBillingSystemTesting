@@ -1,16 +1,30 @@
 package main.ebs;
 
 import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
 import javax.swing.*;
 
 public class PayBill extends JFrame{
-    PayBill(){
-        JEditorPane j = new JEditorPane();
+
+    private JEditorPane j;
+
+    public PayBill() {
+        this(new JEditorPane());
+    }
+
+    public PayBill(JEditorPane editorPane) {
+        this.j = editorPane;
+        initialize();
+    }
+
+    private void initialize() {
         j.setEditable(false);
 
         try {
-            j.setPage("https://paytm.com/electricity-bill-payment");
-        }catch (Exception e) {
+            loadPage(URI.create("https://paytm.com/electricity-bill-payment").toURL());
+        } catch (Exception e) {
             j.setContentType("text/html");
             j.setText("<html>Could not load</html>");
         }
@@ -23,7 +37,14 @@ public class PayBill extends JFrame{
         setLocation(250,120);
         setVisible(true);
     }
+
+    public void loadPage(java.net.URL url) throws IOException {
+        j.setPage(url);
+    }
+
+    public JEditorPane getEditorPane() { return j;}
+
     public static void main(String[] args){
-        new PayBill().setVisible(true);
+        SwingUtilities.invokeLater(() -> new PayBill().setVisible(true));
     }
 }

@@ -7,7 +7,6 @@ public class Splash
     public static void main(String args[])
     {
         fframe f1=new fframe();
-        f1.setVisible(true);
         int i;
         int x=1;
         for(i=2;i<=600;i+=4,x++)
@@ -26,10 +25,11 @@ public class Splash
     }
     public static class fframe extends JFrame implements Runnable
     {
-        Thread t1;
-        fframe()
+        public Thread t1;
+        public fframe()
         {
             super("Electricity Billing System");
+            this.setVisible(true);
             setLayout(new FlowLayout());
             ImageIcon c1=new ImageIcon(ClassLoader.getSystemResource("images/splash.jpg"));
             Image i1=c1.getImage().getScaledInstance(720,550,Image.SCALE_DEFAULT);
@@ -40,6 +40,7 @@ public class Splash
             t1=new Thread(this);
             t1.start();
         }
+        @Override
         public void run()
         {
             try
