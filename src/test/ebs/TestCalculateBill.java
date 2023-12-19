@@ -1,7 +1,11 @@
 package test.ebs;
 import main.ebs.CalculateBill;
+import main.ebs.WriteFileB;
+import main.ebs.WriteFileMockB;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.stream.IntStream;
@@ -28,6 +32,7 @@ public class TestCalculateBill {
 
         assertFalse(bill.getMeterNumber()>1010);
     }
+
     @Test
     void testMeterNumberRange() {
         Choice meterChoice = bill.c1;
@@ -47,57 +52,64 @@ public class TestCalculateBill {
     }
 
 
-    @Test
+    /*@Test
     void testValidInput(){
         bill.c1.select("1001");
         bill.t1.setText("50");
         bill.c2.select("January");
 
         // Perform action
-       bill.actionPerformed(null);
+       bill.getB1().doClick();
 
         // Assertions
         String fileContent = bill.getFileContent("bill_info.txt");
+        assertTrue(fileContent.contains("Meter No: 1001, Month: January, Units Consumed: 50, Total Charges:"));
+    }
+    */
+    @Test
+    void testValidInputMockVer(){
+        WriteFileMockB writeFileMockB = new WriteFileMockB();
+        bill.setWriteFile(writeFileMockB);
+
+        bill.c1.select("1001");
+        bill.t1.setText("50");
+        bill.c2.select("January");
+
+        // Perform action
+        bill.getB1().doClick();
+
+        // Assertions
+        String fileContent = writeFileMockB.getFileInfo();
         assertTrue(fileContent.contains("Meter No: 1001, Month: January, Units Consumed: 50, Total Charges:"));
     }
 
 
     @Test
     void testCalculateBill_CancelOperation() {
-        bill.actionPerformed(null);
+        CalculateBill calculateBill = new CalculateBill();
+        calculateBill.setVisible(true);
 
-        // Verify that no changes are made
-        assertEquals("", getLastDialogMessage());
-        assertEquals("", bill.getFileContent("bill_info.txt"));
+        JButton cancelButton = calculateBill.getB2();
+        cancelButton.doClick();
+
+        assertFalse(calculateBill.isVisible());
     }
 
-    private String getLastDialogMessage() {
-        // Replace this with the actual way you retrieve dialog messages
-        return "Bill Updated"; // Replace with the actual implementation
-    }
 
-    /*
-
-    this one will probably need mocking to fix completely
     @Test
     void testInvalidInputForUnitConsumed() {
         // Set necessary values (e.g., Meter No and Units Consumed)
         bill.setMeterNumber("1005");
-        bill.setUnitsConsumed("abc");//invalid might need mocking to fix
+        bill.setUnitsConsumed("abc");
         bill.setMonth("March");
 
-        bill.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "SimulatedActionCommand"));
-
-        // get content from file
-        String fileContent = bill.getFileContent("bill_info.txt");
-
-        // Assertion: Check that the file content does not contain the invalid input
-        assertFalse(fileContent.contains("Meter No: 1005, Month: March, Units Consumed: abc, Total Charges:"));
-
+        assertThrows(NumberFormatException.class,() -> {bill.getB1().doClick();});
     }
 
-     */
 
+
+
+    // not sure if we need this since we always have something chosen for the month input - huerta
     @Test
     void testInvalidInputMissingMonth(){
         bill.setMeterNumber("1002");

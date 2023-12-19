@@ -4,6 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
 public class GenerateBill extends JFrame implements ActionListener {
     private JLabel l1;
@@ -11,7 +12,11 @@ public class GenerateBill extends JFrame implements ActionListener {
     private JButton b1;
     private Choice c1, c2;
     private JPanel p1;
+    private ReadBillData readBillData = new ReadBillData();
 
+    public void setReadBillData(ReadBillData readBillData) {
+        this.readBillData = readBillData;
+    }
 
     public GenerateBill() {
         setSize(500, 900);
@@ -85,46 +90,36 @@ public class GenerateBill extends JFrame implements ActionListener {
 
 
     public void actionPerformed(ActionEvent ae) {
+        boolean billFound;
         try {
 
             String month = c2.getSelectedItem();
             String meterNumber = c1.getSelectedItem();
+            billFound = false;
 
             t1.setText("\tReliance Power Limited\nELECTRICITY BILL FOR THE MONTH OF " + month + " ,2018\n\n\n");
 
-            BufferedReader reader = new BufferedReader(new FileReader("bill_info.txt"));
-            String line;
-            boolean billFound = false;
-
-            while ((line = reader.readLine()) != null) {
-                String[] billData = line.split(", "); // Adjust this based on the actual format in your file
-
-                System.out.println("Checking line: " + line);
-
-                if (billData[0].startsWith("Meter No: " + meterNumber) && billData[1].startsWith("Month: " + month)) {
-                    System.out.println("Match found!");
-                    System.out.println(billData[0]);
-                    System.out.println(billData[1]);
-                    System.out.println(billData[2]);
-                    System.out.println(billData[3]);
-
-                    t1.append("Meter Number: " + billData[0].substring(10) + "\n"); // Extracting the value after "Meter No: "
-                    t1.append("Month: " + billData[1].substring(7) + "\n"); // Extracting the value after "Month: "
-                    t1.append("Units Consumed: " + billData[2].substring(16) + "\n"); // Extracting the value after "Units Consumed: "
-                    t1.append("Total Charges: " + billData[3].substring(17) + "\n"); // Extracting the value after "Total Charges: "
-                    t1.append("---------------------------------------------------------------\n");
-                    billFound = true;
-
-                }
-            }
-            reader.close();
-
-            if (!billFound) {
+            String[] billData = readBillData.readAndFindBillData(month, meterNumber).split(",");
+            System.out.println(billData[0]);
+            if (billData[0].equals("Not found"))
                 t1.setText("No bill found for the selected criteria.");
+            else {
+                System.out.println(billData[0]);
+                System.out.println(billData[1]);
+                System.out.println(billData[2]);
+                System.out.println(billData[3]);
+
+                t1.append("Meter Number: " + billData[0].substring(10) + "\n"); // Extracting the value after "Meter No: "
+                t1.append("Month: " + billData[1].substring(8) + "\n"); // Extracting the value after "Month: "
+                t1.append("Units Consumed: " + billData[2].substring(16) + "\n"); // Extracting the value after "Units Consumed: "
+                t1.append("Total Charges: " + billData[3].substring(16) + "\n"); // Extracting the value after "Total Charges: "
+                t1.append("---------------------------------------------------------------\n");
+                billFound = true;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+
     }
 
 

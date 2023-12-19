@@ -12,7 +12,10 @@ public class CustomerDetails extends JFrame implements ActionListener {
     JButton b1;
     private final String[] colName = {"Emp Name", "Meter No", "Address", "State", "City", "Email", "Phone"};
     private String[][] customerData= new String[20][8];
-
+    ReadCustomerData readD = new ReadCustomerData();
+    public void setReadD(ReadCustomerData readD) {
+        this.readD = readD;
+    }
 
     public CustomerDetails() {
         super("Customer Details");
@@ -38,27 +41,7 @@ public class CustomerDetails extends JFrame implements ActionListener {
 
     // method to read info from file
     public void readDataFromFile() throws IOException {
-        customerData = new String[20][8];
-        int i = 0, j = 0;
-
-        try (BufferedReader reader = new BufferedReader(new FileReader("customer_info.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-
-                String[] data = line.split(", ");
-
-                for (String str : data) {
-                    if (j < 8) { // Check if j is within bounds
-                        String[] parts = str.split("\\s+");
-                        String lastWord = parts[parts.length - 1];
-                        customerData[i][j++] = lastWord;
-                    }
-                }
-
-                i++;
-                j = 0;
-            }
-        }
+        readD.readCustomerData(customerData);
     }
 
 

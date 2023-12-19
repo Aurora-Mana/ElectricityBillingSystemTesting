@@ -14,6 +14,11 @@ public class LastBill extends JFrame implements ActionListener
     private JButton b1;
     private Choice c1;
     private JPanel p1;
+    private BufferedReader reader;
+
+    public void setReader(BufferedReader reader) {
+        this.reader = reader;
+    }
 
     private JLabel getL1(){
         return l1;
@@ -79,7 +84,7 @@ public class LastBill extends JFrame implements ActionListener
 
     public void actionPerformed(ActionEvent ae) {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("bill_info.txt"));
+            reader = new BufferedReader(new FileReader("bill_info.txt"));
             String meterNumber = c1.getSelectedItem();
             String lastBill = findLastBill(reader, meterNumber);
             reader.close();
@@ -89,6 +94,7 @@ public class LastBill extends JFrame implements ActionListener
             e.printStackTrace();
         }
     }
+
 
     public String findLastBill(BufferedReader reader, String meterNumber) throws IOException {
         String line;

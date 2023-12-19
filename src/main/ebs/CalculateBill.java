@@ -12,6 +12,15 @@ public class CalculateBill extends JFrame implements ActionListener {
     public Choice c1, c2;
     private JButton b1,b2;
     JPanel p;
+    private WriteFileB writeFile = new WriteFileB(); // Initialize the WriteFile object directly
+
+    public void setWriteFile(WriteFileB writeFile) {
+        this.writeFile = writeFile;
+    }
+
+    public WriteFileB getWriteFile() {
+        return writeFile;
+    }
 
     public JButton getB1(){
         return b1;
@@ -30,7 +39,7 @@ public class CalculateBill extends JFrame implements ActionListener {
         //labels
         l1 = new JLabel("Calculate Electricity Bill");
         l2 = new JLabel("Meter No");
-        l3 = new JLabel("Units Cosumed");
+        l3 = new JLabel("Units Consumed");
         l5 = new JLabel("Month");
 
         t1 = new JTextField();
@@ -151,24 +160,31 @@ public class CalculateBill extends JFrame implements ActionListener {
         ///string for storing the choice for month
         String c = c2.getSelectedItem();
 
-        ///we convert the string containing unit consumed into int
-        int p1 = Integer.parseInt(b);
-        ///calculations to find how much is the bill
-        int p2 = p1 * 7;
-        int p3 = p2 + 50 + 12 + 102 + 20 + 50;
+        if (ae.getSource() == b1) {
 
-        try {
-            // Writing data to a file named "bill_info.txt"
-            BufferedWriter writer = new BufferedWriter(new FileWriter("bill_info.txt", true));
-            //meter number for this month will the the value calculated in p3
-            writer.write("Meter No: " + a + ", Month: " + c + ", Units Consumed: " + b + ", Total Charges: " + p3);
-            writer.newLine();
-            writer.close();
-            ///when finished message bill updated will be shown
-            JOptionPane.showMessageDialog(null, "Bill Updated");
-        } catch (IOException e) {
-            //in case not
-            e.printStackTrace();
+            try{
+                if (!b.matches("\\d+"))
+                    JOptionPane.showMessageDialog(null, "Units Consumed should contain only numbers.");
+            }catch (NumberFormatException e){
+                System.out.println(e.getMessage());
+            }
+
+            ///we convert the string containing unit consumed into int
+            int p1 = Integer.parseInt(b);
+            ///calculations to find how much is the bill
+            int p2 = p1 * 7;
+            int p3 = p2 + 50 + 12 + 102 + 20 + 50;
+
+            try {
+                writeFile.writeBillData(Integer.parseInt(a), p1, c, p3);
+                /// When finished message bill updated will be shown
+                JOptionPane.showMessageDialog(null, "Bill Updated");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (ae.getSource() == b2) {
+            // Cancel button
+            setVisible(false);
         }
 
 
@@ -192,5 +208,4 @@ public class CalculateBill extends JFrame implements ActionListener {
 
         new CalculateBill().setVisible(true);
     }
-
 }
