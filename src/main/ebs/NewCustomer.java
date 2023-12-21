@@ -15,7 +15,7 @@ public class NewCustomer extends JFrame implements ActionListener{
     private final BufferedWriter writer;
 
     public NewCustomer() throws IOException {
-            this(new BufferedWriter(new FileWriter("customer_info.text", true)));
+            this(new BufferedWriter(new FileWriter("customer_info.txt", true)));
 
     }
 

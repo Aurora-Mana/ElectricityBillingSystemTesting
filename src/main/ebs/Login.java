@@ -15,8 +15,31 @@ public class Login extends JFrame implements ActionListener
     JPasswordField pf2;
     JButton b1,b2;
     JPanel p1,p2,p3,p4;
+    ReadUserData readUserData = new ReadUserData();
 
-    Login()
+    JTextArea t1;
+
+    public void setReadUserData(ReadUserData readUserData) {
+        this.readUserData = readUserData;
+    }
+
+    public JButton getB1() {
+        return b1;
+    }
+
+    public JButton getB2() {
+        return b2;
+    }
+
+    public JTextField getTf1() {
+        return tf1;
+    }
+
+    public JPasswordField getPf2() {
+        return pf2;
+    }
+
+    public Login()
     {
         super("Login Page");
         l1=new JLabel("User Name");
@@ -72,33 +95,25 @@ public class Login extends JFrame implements ActionListener
 
     public void actionPerformed(ActionEvent ae){
 
-        try {
-            String username = tf1.getText();
-            String password = pf2.getText();
-            boolean userFound = false;
+        if(ae.getSource() == b1) {
+            try {
+                String username = tf1.getText();
+                String password = pf2.getText();
+                boolean userFound = readUserData.readUserData(username, password);
 
-            BufferedReader reader = new BufferedReader(new FileReader("user_info.txt"));
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                String[] userData = line.split(" ");
-                if (userData.length >= 2 && userData[0].equals(username) && userData[1].equals(password)) {
-                    userFound = true;
-                    break;
+                if (userFound) {
+                    new Project().setVisible(true);
+                    this.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid Login");
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Error: " + e);
             }
-            reader.close();
-
-            if (userFound) {
-                new Project().setVisible(true);
-                this.setVisible(false);
-            } else {
-                JOptionPane.showMessageDialog(null, "Invalid Login");
-                setVisible(false);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error: " + e);
+        } else if (ae.getSource() == b2){
+            // Cancel button
+            setVisible(false);
         }
     }
 
