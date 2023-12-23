@@ -51,21 +51,6 @@ public class TestCalculateBill {
         assertTrue(allWithinRange, "All meter numbers should be within the range " + lowerBound + " - " + upperBound);
     }
 
-
-    /*@Test
-    void testValidInput(){
-        bill.c1.select("1001");
-        bill.t1.setText("50");
-        bill.c2.select("January");
-
-        // Perform action
-       bill.getB1().doClick();
-
-        // Assertions
-        String fileContent = bill.getFileContent("bill_info.txt");
-        assertTrue(fileContent.contains("Meter No: 1001, Month: January, Units Consumed: 50, Total Charges:"));
-    }
-    */
     @Test
     void testValidInputMockVer(){
         WriteFileMockB writeFileMockB = new WriteFileMockB();
