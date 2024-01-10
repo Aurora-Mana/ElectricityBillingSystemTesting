@@ -1,7 +1,7 @@
 package test.ebs.unit;
 
 import main.ebs.Login;
-import main.ebs.ReadUserDataMock;
+import main.ebs.ReadDataMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +31,7 @@ public class LoginTest {
     @Test
     void loginProcessTestMock() {
         // Create the mock data reader and insert info
-        ReadUserDataMock readUserDataMock = new ReadUserDataMock();
+        ReadDataMock readUserDataMock = new ReadDataMock();
         readUserDataMock.addInfo("Admin", "12345678");
         login.setReadUserData(readUserDataMock);
 
@@ -47,18 +47,20 @@ public class LoginTest {
     @Test
     void userNotFoundInTheFile() {
         // Inserting info in the text fields, that we know is not located in the user_info.txt
+        login.setShowMessageDialogs(false);
         login.getTf1().setText("User");
         login.getPf2().setText("12345678");
         // Initiate button click anf assert if the window is still open after the button is clicked
         login.getB1().doClick();
         assertTrue(login.isVisible());
-
+        login.setVisible(false);
     }
 
     @Test
     void userNotFoundInTheFileMock() {
+        login.setShowMessageDialogs(false);
         // Create the mock data reader and insert info
-        ReadUserDataMock readUserDataMock = new ReadUserDataMock();
+        ReadDataMock readUserDataMock = new ReadDataMock();
         readUserDataMock.addInfo("Admin", "12345678");
         login.setReadUserData(readUserDataMock);
 
@@ -73,6 +75,7 @@ public class LoginTest {
 
     @Test
     void textFieldEmpty() {
+        login.setShowMessageDialogs(false);
         // Inserting info in the text fields
         login.getTf1().setText("");
         login.getPf2().setText("12345678");
@@ -84,8 +87,9 @@ public class LoginTest {
 
     @Test
     void textFieldEmptyMock() {
+        login.setShowMessageDialogs(false);
         // Create the mock data reader and insert info
-        ReadUserDataMock readUserDataMock = new ReadUserDataMock();
+        ReadDataMock readUserDataMock = new ReadDataMock();
         readUserDataMock.addInfo("Admin", "12345678");
         login.setReadUserData(readUserDataMock);
 
@@ -100,6 +104,7 @@ public class LoginTest {
 
     @Test
     void passwordFieldEmpty() {
+        login.setShowMessageDialogs(false);
         // Inserting info in the text field
         login.getTf1().setText("Admin");
         login.getPf2().setText("");
@@ -111,8 +116,9 @@ public class LoginTest {
 
     @Test
     void passwordFieldEmptyMock() {
+        login.setShowMessageDialogs(false);
         // Create the mock data reader and insert info
-        ReadUserDataMock readUserDataMock = new ReadUserDataMock();
+        ReadDataMock readUserDataMock = new ReadDataMock();
         readUserDataMock.addInfo("Admin", "12345678");
         login.setReadUserData(readUserDataMock);
 
@@ -127,6 +133,7 @@ public class LoginTest {
 
     @Test
     void bothFieldsAreEmpty() {
+        login.setShowMessageDialogs(false);
         login.getTf1().setText("");
         login.getPf2().setText("");
         // Initiate button click anf assert if the window is still open after the button is clicked
@@ -137,8 +144,9 @@ public class LoginTest {
 
     @Test
     void bothFieldsAreEmptyMock() {
+        login.setShowMessageDialogs(false);
         // Create the mock data reader and insert info
-        ReadUserDataMock readUserDataMock = new ReadUserDataMock();
+        ReadDataMock readUserDataMock = new ReadDataMock();
         readUserDataMock.addInfo("Admin", "12345678");
         login.setReadUserData(readUserDataMock);
 
@@ -154,5 +162,10 @@ public class LoginTest {
     void cancelButtonTest() {
         login.getB2().doClick();
         assertFalse(login.isVisible());
+    }
+
+    @Test
+    void invalidLoginActionMessage(){
+        assertTrue(login.getShowMessageDialogs());
     }
 }

@@ -1,6 +1,6 @@
 package test.ebs;
 import main.ebs.CustomerDetails;
-import main.ebs.ReadCustomerDataMock;
+import main.ebs.ReadDataMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.assertj.swing.edt.GuiActionRunner.execute;
@@ -44,7 +44,7 @@ public class TestCustomerDetails {
 
     @Test
     void testReadDataFromFileValidDataMock() throws IOException {
-        ReadCustomerDataMock readCustomerDataMock = new ReadCustomerDataMock();
+        ReadDataMock readCustomerDataMock = new ReadDataMock();
         readCustomerDataMock.writeIntoFileInfo("John", "1001", "Address1", "State1","City1", "johnnnyjohn@email.com","123456789");
         readCustomerDataMock.writeIntoFileInfo("Emily", "1001", "Address2", "State2","City2", "emmy@email.com","987654321");
         // Insert individuals into the string that we will use for mocking
@@ -80,7 +80,7 @@ public class TestCustomerDetails {
 
     @Test
     public void testReadDataFromFile_EmptyRowCellsMock() throws IOException{
-        ReadCustomerDataMock readCustomerDataMock = new ReadCustomerDataMock();
+        ReadDataMock readCustomerDataMock = new ReadDataMock();
         // Prepare the mock data
         readCustomerDataMock.writeIntoFileInfo("John", "1234", "Address1", "State1", "City1", "john@example.com", "1234567890");
         readCustomerDataMock.writeIntoFileInfo("Alice", "5678", "Address2", "State2", "City2", "alice@example.com", "9876543210");

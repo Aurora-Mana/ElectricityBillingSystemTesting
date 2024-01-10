@@ -1,8 +1,7 @@
 package test.ebs;
 import main.ebs.GenerateBill;
-import main.ebs.ReadBillData;
-import main.ebs.ReadBillDataMock;
-import main.ebs.ReadCustomerData;
+import main.ebs.ReadData;
+import main.ebs.ReadDataMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.awt.event.ActionEvent;
@@ -48,9 +47,7 @@ public class TestGenerateBill {
     @Test
     public void testFileReadingDataPopulationMock(){
         // Create an instance of the mock and set it as the data provider for GenerateBill
-        ReadBillDataMock readBillDataMock = new ReadBillDataMock();
-
-
+        ReadDataMock readBillDataMock = new ReadDataMock();
         generateBill.getC1().select("1001");
         generateBill.getC2().select("January");
         readBillDataMock.writeIntoFileInfo("1001","January", "50","250");
@@ -65,7 +62,7 @@ public class TestGenerateBill {
 
     @Test
     public void testSuccessfulBillRetrieval() throws IOException {
-        ReadBillData readBillData = new ReadBillData();
+        ReadData readBillData = new ReadData();
         generateBill.getC1().select("1002");
         generateBill.getC2().select("March");
 
@@ -87,7 +84,7 @@ public class TestGenerateBill {
 
     @Test
     public void testSuccessfulBillRevivalMock() throws IOException {
-        ReadBillDataMock readBillDataMock = new ReadBillDataMock();
+        ReadDataMock readBillDataMock = new ReadDataMock();
         generateBill.getC1().select("1002");
         generateBill.getC2().select("March");
         readBillDataMock.writeIntoFileInfo("1002", "March", "40","444");

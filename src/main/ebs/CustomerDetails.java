@@ -12,8 +12,8 @@ public class CustomerDetails extends JFrame implements ActionListener {
     JButton b1;
     private final String[] colName = {"Emp Name", "Meter No", "Address", "State", "City", "Email", "Phone"};
     private String[][] customerData= new String[20][8];
-    ReadCustomerData readD = new ReadCustomerData();
-    public void setReadD(ReadCustomerData readD) {
+    ReadData readD = new ReadData();
+    public void setReadD(ReadData readD) {
         this.readD = readD;
     }
 
