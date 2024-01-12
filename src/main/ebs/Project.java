@@ -297,4 +297,28 @@ public class Project extends JFrame implements ActionListener {
 
         project.setVisible(true);
     }
+
+    public CustomerDetails getCustomerDetails() {
+        return customerDetails;
+    }
+
+    public NewCustomer getNewCustomer() {
+        return newCustomer;
+    }
+
+    public CalculateBill getCalculateBill() {
+        return calculateBill;
+    }
+
+    public PayBill getPayBill() {
+        return payBill;
+    }
+
+    public GenerateBill getGenerateBill() {
+        return generateBill;
+    }
+
+    public LastBill getLastBill() {
+        return lastBill;
+    }
 }
