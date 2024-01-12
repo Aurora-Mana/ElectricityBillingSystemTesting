@@ -102,7 +102,12 @@ public class Login extends JFrame implements ActionListener
                 boolean userFound = readUserData.readUserData(username, password);
 
                 if (userFound) {
-                    new Project().setVisible(true);
+                    new Project(new CustomerDetails(),
+                            new NewCustomer(),
+                            new CalculateBill(),
+                            new PayBill(),
+                            new GenerateBill(),
+                            new LastBill()).setVisible(true);
                     this.setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid Login");

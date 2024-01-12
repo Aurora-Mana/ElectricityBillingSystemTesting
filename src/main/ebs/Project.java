@@ -5,11 +5,34 @@ import java.awt.event.*;
 import java.io.IOException;
 import javax.swing.*;
 
-public class Project extends JFrame implements ActionListener{
-    Project(){
+public class Project extends JFrame implements ActionListener {
+    private static final long serialVersionUID = 1L;
+
+    private CustomerDetails customerDetails;
+    private NewCustomer newCustomer;
+    private CalculateBill calculateBill;
+    private PayBill payBill;
+    private GenerateBill generateBill;
+    private LastBill lastBill;
+
+    public Project(
+            CustomerDetails customerDetails,
+            NewCustomer newCustomer,
+            CalculateBill calculateBill,
+            PayBill payBill,
+            GenerateBill generateBill,
+            LastBill lastBill
+    ) {
         super("Electricity Billing System");
 
-        setSize(1500,800);
+        this.customerDetails = customerDetails;
+        this.newCustomer = newCustomer;
+        this.calculateBill = calculateBill;
+        this.payBill = payBill;
+        this.generateBill = generateBill;
+        this.lastBill = lastBill;
+
+        setSize(1500, 800);
 
         /* Adding background image */
         ImageIcon ic =  new ImageIcon(ClassLoader.getSystemResource("images/main1.jpg"));
@@ -101,7 +124,7 @@ public class Project extends JFrame implements ActionListener{
         u3.addActionListener(this);
 
 
-        // --------------------------------------------------------------------------------------------- 
+        // ---------------------------------------------------------------------------------------------
 
         /* Third Column*/
         JMenu report = new JMenu("Report");
@@ -210,58 +233,68 @@ public class Project extends JFrame implements ActionListener{
         setLayout(new FlowLayout());
         setVisible(false);
     }
-    public void actionPerformed(ActionEvent ae){
+    public void actionPerformed(ActionEvent ae) {
         String msg = ae.getActionCommand();
-        if(msg.equals("Customer Details")){
-            new CustomerDetails().setVisible(true);
-
-        }else if(msg.equals("New Customer")){
-            try {
-                new NewCustomer().setVisible(true);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-        }else if(msg.equals("Calculate Bill")){
-            new CalculateBill().setVisible(true);
-
-        }else if(msg.equals("Pay Bill")){
-            new PayBill().setVisible(true);
-
-        }else if(msg.equals("Notepad")){
-            try{
-                Runtime.getRuntime().exec("notepad.exe");
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        }else if(msg.equals("Calculator")){
-            try{
-                Runtime.getRuntime().exec("calc.exe");
-            } catch(Exception e){
-                e.printStackTrace();
-            }
-        }else if(msg.equals("Web Browser")){
-            try{
-                Runtime.getRuntime().exec("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe");
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        }else if(msg.equals("Exit")){
-            System.exit(0);
-        }else if(msg.equals("Generate Bill")){
-            new GenerateBill().setVisible(true);
-
-        }else if(msg.equals("Last Bill")){
-            new LastBill().setVisible(true);
-
+        switch (msg) {
+            case "Customer Details":
+                customerDetails.setVisible(true);
+                break;
+            case "New Customer":
+                newCustomer.setVisible(true);
+                break;
+            case "Calculate Bill":
+                calculateBill.setVisible(true);
+                break;
+            case "Pay Bill":
+                payBill.setVisible(true);
+                break;
+            case "Notepad":
+                openApplication("notepad.exe");
+                break;
+            case "Calculator":
+                openApplication("calc.exe");
+                break;
+            case "Web Browser":
+                openApplication("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe");
+                break;
+            case "Exit":
+                System.exit(0);
+                break;
+            case "Generate Bill":
+                generateBill.setVisible(true);
+                break;
+            case "Last Bill":
+                lastBill.setVisible(true);
+                break;
         }
-
-
     }
 
-
-    public static void main(String[] args){
-        new Project().setVisible(true);
+    private void openApplication(String command) {
+        try {
+            Runtime.getRuntime().exec(command);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
+    public static void main(String[] args) {
+        CustomerDetails customerDetails = new CustomerDetails();
+        NewCustomer newCustomer = null;
+        try {
+            newCustomer = new NewCustomer();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        CalculateBill calculateBill = new CalculateBill();
+        PayBill payBill = new PayBill();
+        GenerateBill generateBill = new GenerateBill();
+        LastBill lastBill = new LastBill();
+
+        Project project = new Project(
+                customerDetails, newCustomer, calculateBill,
+                payBill, generateBill, lastBill
+        );
+
+        project.setVisible(true);
+    }
 }
