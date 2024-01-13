@@ -30,12 +30,12 @@ public class PayBill extends JFrame{
         }
 
         JScrollPane scrollPane = new JScrollPane(j);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         getContentPane().add(scrollPane);
         setPreferredSize(new Dimension(800,600));
         setSize(800,800);
         setLocation(250,120);
-        setVisible(true);
+        //setVisible(true);
     }
 
     public void loadPage(java.net.URL url) throws IOException {

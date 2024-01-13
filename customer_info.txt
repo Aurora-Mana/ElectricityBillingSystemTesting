@@ -1,2 +1,4 @@
 Name: cus1, Meter No: 160, Address: 11233, State: State1, City: City1, Email: email@email.email, Phone Number: 112202020
 Name: name2, Meter No: 160, Address: address2, State: state2, City: city2, Email: email1@email1.email1, Phone Number: 11111111
+Name: AAA BBB, Meter No: 1, Address: Rruga 1, State: 12, City: Vlorë, Email: aaa@bbb.com, Phone Number: 1234567890
+Name: RRRGGG GGGRRR, Meter No: 334, Address: Rruga2 Rruga4, State: 2, City: Tiranë, Email: rrr@ggg.com, Phone Number: 003551234567890

@@ -106,10 +106,15 @@ public class Login extends JFrame implements ActionListener
             try {
                 String username = tf1.getText();
                 String password = pf2.getText();
-                boolean userFound = readUserData.readUserData(username, password);
+                boolean userFound = this.readUserData.readUserData(username, password);
 
                 if (userFound) {
-                    new Project().setVisible(true);
+                    new Project(new CustomerDetails(),
+                            new NewCustomer(),
+                            new CalculateBill(),
+                            new PayBill(),
+                            new GenerateBill(),
+                            new LastBill()).setVisible(true);
                     this.setVisible(false);
                 } else {
                     // Call the method to handle invalid login
