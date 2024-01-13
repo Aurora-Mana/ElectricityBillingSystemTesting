@@ -17,6 +17,29 @@ public class CustomerDetails extends JFrame implements ActionListener {
         this.readD = readD;
     }
 
+
+    public CustomerDetails(ReadData readD) {
+        super("Customer Details");
+        setReadD(readD);
+        setSize(1200, 650);
+        setLocation(200, 200);
+
+        // Call the method to read data from file
+        try {
+            readDataFromFile();
+        } catch (IOException e) {
+            System.out.println("Error reading file or file is empty: " + e.getMessage());
+        }
+
+        // Create JTable with the retrieved data
+        t1 = new JTable(customerData, colName);
+
+        b1 = new JButton("Print");
+        add(b1, "South");
+        JScrollPane sp = new JScrollPane(t1);
+        add(sp);
+        b1.addActionListener(this);
+    }
     public CustomerDetails() {
         super("Customer Details");
         setSize(1200, 650);
@@ -38,6 +61,8 @@ public class CustomerDetails extends JFrame implements ActionListener {
         add(sp);
         b1.addActionListener(this);
     }
+
+
 
     // method to read info from file
     public void readDataFromFile() throws IOException {

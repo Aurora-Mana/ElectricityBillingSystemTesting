@@ -1,10 +1,9 @@
 package main.ebs;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+
 public class ReadData {
+
     public boolean readUserData(String username, String password) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader("user_info.txt"));
         String line;

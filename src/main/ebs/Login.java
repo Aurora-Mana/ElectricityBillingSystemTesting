@@ -17,6 +17,11 @@ public class Login extends JFrame implements ActionListener
     JPanel p1,p2,p3,p4;
     ReadData readUserData = new ReadData();
     private boolean showMessageDialogs = true;
+    private Project project;
+
+    public Project getProject() {
+        return project;
+    }
 
     public boolean getShowMessageDialogs(){
         return showMessageDialogs;
@@ -109,12 +114,13 @@ public class Login extends JFrame implements ActionListener
                 boolean userFound = this.readUserData.readUserData(username, password);
 
                 if (userFound) {
-                    new Project(new CustomerDetails(),
+                    project = new Project(new CustomerDetails(),
                             new NewCustomer(),
                             new CalculateBill(),
                             new PayBill(),
                             new GenerateBill(),
-                            new LastBill()).setVisible(true);
+                            new LastBill());
+                    project.setVisible(true);
                     this.setVisible(false);
                 } else {
                     // Call the method to handle invalid login

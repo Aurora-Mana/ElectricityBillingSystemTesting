@@ -14,6 +14,12 @@ public class NewCustomer extends JFrame implements ActionListener{
 
     private final BufferedWriter writer;
 
+    private boolean showMessageDialogs = true;
+
+    public void setShowMessageDialogs(boolean showMessageDialogs) {
+        this.showMessageDialogs = showMessageDialogs;
+    }
+
     public NewCustomer() throws IOException {
             this(new BufferedWriter(new FileWriter("customer_info.txt", true)));
 
@@ -100,7 +106,7 @@ public class NewCustomer extends JFrame implements ActionListener{
             writer.newLine();
             writer.close();
 
-            JOptionPane.showMessageDialog(null, "Customer Information Recorded Successfully");
+            successfulAddition();
             this.setVisible(false);
 
         } catch (IOException ex) {
@@ -108,6 +114,11 @@ public class NewCustomer extends JFrame implements ActionListener{
         }
     }
 
+    public void successfulAddition() {
+        if (showMessageDialogs) {
+            JOptionPane.showMessageDialog(null, "Customer Information Recorded Successfully");
+        }
+    }
     public String getCustomerInfo() {
         String name = t1.getText();
         String meterNo = t2.getText();
