@@ -11,5 +11,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="junit.jupiter" level="project" />
     <orderEntry type="library" name="assertj.swing" level="project" />
+    <orderEntry type="library" name="io.cucumber.java" level="project" />
   </component>
 </module>

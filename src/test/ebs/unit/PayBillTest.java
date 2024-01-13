@@ -33,6 +33,7 @@ public class PayBillTest {
     public void testLoadPageSuccess() throws IOException {
         MockEditorPane mockEditorPane = new MockEditorPane();
         PayBill payBill = new PayBill(mockEditorPane);
+        payBill.setVisible(false);
 
         payBill.loadPage(URI.create("https://www.google.com").toURL());
 
@@ -44,6 +45,7 @@ public class PayBillTest {
     public void testLoadPageFailure() throws IOException {
         MockFailingEditorPane mockFailingEditorPane = new MockFailingEditorPane();
         PayBill payBill = new PayBill(mockFailingEditorPane);
+        payBill.setVisible(false);
 
         //Verify that an exception is thrown when supplied an invalid url
         assertThrows(IllegalArgumentException.class, () -> payBill.loadPage(URI.create("invalid url").toURL()));

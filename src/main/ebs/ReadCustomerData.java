@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class ReadCustomerData {
+public class
+
+ReadCustomerData {
 
     public void readCustomerData(String[][] customerData) throws IOException {
         int i = 0;
