@@ -24,6 +24,7 @@ public class GenerateBill extends JFrame implements ActionListener {
 
         p1 = new JPanel();
         l1 = new JLabel("Generate Bill");
+        l1.setName("l1");
         c1 = new Choice();
         c2 = new Choice();
 
@@ -37,6 +38,7 @@ public class GenerateBill extends JFrame implements ActionListener {
         c1.add("1008");
         c1.add("1009");
         c1.add("1010");
+        c1.setName("c1");
 
 
         c2.add("January");
@@ -51,6 +53,7 @@ public class GenerateBill extends JFrame implements ActionListener {
         c2.add("October");
         c2.add("November");
         c2.add("December");
+        c2.setName("c2");
 
 
         t1 = new JTextArea(50, 15);
@@ -68,6 +71,7 @@ public class GenerateBill extends JFrame implements ActionListener {
         add(b1, "South");
 
         b1.addActionListener(this);
+        b1.setName("b1");
 
         setLocation(350, 40);
     }

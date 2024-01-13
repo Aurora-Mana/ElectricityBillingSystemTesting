@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.*;
 
 public class CalculateBill extends JFrame implements ActionListener {
-    JLabel l1,l2,l3,l4,l5;
+    public JLabel l1,l2,l3,l4,l5;
     public JTextField t1;
     public Choice c1, c2;
     private JButton b1,b2;
@@ -30,6 +30,38 @@ public class CalculateBill extends JFrame implements ActionListener {
         return b2;
     }
 
+    public JLabel getL1() {
+        return l1;
+    }
+
+    public JLabel getL2() {
+        return l2;
+    }
+
+    public JLabel getL3() {
+        return l3;
+    }
+
+    public JLabel getL4() {
+        return l4;
+    }
+
+    public JLabel getL5() {
+        return l5;
+    }
+
+    public JTextField getT1() {
+        return t1;
+    }
+
+    public Choice getC1() {
+        return c1;
+    }
+
+    public Choice getC2() {
+        return c2;
+    }
+
     public CalculateBill(){
 
         p = new JPanel();
@@ -38,11 +70,19 @@ public class CalculateBill extends JFrame implements ActionListener {
 
         //labels
         l1 = new JLabel("Calculate Electricity Bill");
+        l1.setName("l1");
+
         l2 = new JLabel("Meter No");
+        l2.setName("l2");
+
         l3 = new JLabel("Units Consumed");
+        l3.setName("l3");
+
         l5 = new JLabel("Month");
+        l5.setName("l5");
 
         t1 = new JTextField();
+        t1.setName("t1");
 
         //choices for the meter number
         c1 = new Choice();
@@ -56,6 +96,7 @@ public class CalculateBill extends JFrame implements ActionListener {
         c1.add("1008");
         c1.add("1009");
         c1.add("1010");
+        c1.setName("c1");
 
         //choices for the month
         c2 = new Choice();
@@ -72,9 +113,13 @@ public class CalculateBill extends JFrame implements ActionListener {
         c2.add("November");
         c2.add("December");
 
+        c2.setName("c2");
+
         //buttons
         b1 = new JButton("Submit");
+        b1.setName("b1");
         b2 = new JButton("Cancel");
+        b2.setName("b2");
 
 
         b1.setBackground(Color.BLACK);
