@@ -31,12 +31,14 @@ public class CustomerDetails extends JFrame implements ActionListener {
 
         // Create JTable with the retrieved data
         t1 = new JTable(customerData, colName);
+        t1.setName("t1");
 
         b1 = new JButton("Print");
         add(b1, "South");
         JScrollPane sp = new JScrollPane(t1);
         add(sp);
         b1.addActionListener(this);
+        b1.setName("b1");
     }
 
     // method to read info from file
