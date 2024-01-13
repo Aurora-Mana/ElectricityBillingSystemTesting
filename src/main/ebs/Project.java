@@ -6,7 +6,7 @@ import java.io.IOException;
 import javax.swing.*;
 
 public class Project extends JFrame implements ActionListener{
-    Project(){
+    public Project(){
         super("Electricity Billing System");
 
         setSize(1500,800);
