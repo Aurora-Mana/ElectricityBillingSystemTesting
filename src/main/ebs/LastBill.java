@@ -48,6 +48,7 @@ public class LastBill extends JFrame implements ActionListener
         p1 = new JPanel();
 
         l1 = new JLabel("Generate Bill");
+        l1.setName("l1");
 
         c1 = new Choice();
 
@@ -61,11 +62,13 @@ public class LastBill extends JFrame implements ActionListener
         c1.add("1008");
         c1.add("1009");
         c1.add("1010");
+        c1.setName("c1");
 
 
         t1 = new JTextArea(50,15);
         JScrollPane jsp = new JScrollPane(t1);
         t1.setFont(new Font("Senserif",Font.ITALIC,18));
+        t1.setName("t1");
 
         b1 = new JButton("Generate Bill");
 
@@ -77,6 +80,7 @@ public class LastBill extends JFrame implements ActionListener
         add(b1,"South");
 
         b1.addActionListener(this);
+        b1.setName("b1");
 
         setLocation(350,40);
     }

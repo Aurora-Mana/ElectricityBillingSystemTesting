@@ -20,7 +20,9 @@ public class TestCalculateBill {
 
     @BeforeEach
     public void setUp() {
+
         bill = execute(CalculateBill::new);
+        bill.setVisible(false);
     }
     @Test
     void testInvalidMeterNoNoLessThan1001(){
@@ -73,13 +75,11 @@ public class TestCalculateBill {
 
     @Test
     void testCalculateBill_CancelOperation() {
-        CalculateBill calculateBill = new CalculateBill();
-        calculateBill.setVisible(true);
 
-        JButton cancelButton = calculateBill.getB2();
+        JButton cancelButton = bill.getB2();
         cancelButton.doClick();
 
-        assertFalse(calculateBill.isVisible());
+        assertFalse(bill.isVisible());
     }
 
 
@@ -96,8 +96,6 @@ public class TestCalculateBill {
 
 
 
-
-    // not sure if we need this since we always have something chosen for the month input - huerta
     @Test
     void testInvalidInputMissingMonth(){
         bill.setMeterNumber("1002");
