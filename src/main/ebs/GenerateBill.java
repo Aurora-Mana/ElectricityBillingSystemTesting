@@ -12,9 +12,9 @@ public class GenerateBill extends JFrame implements ActionListener {
     private JButton b1;
     private Choice c1, c2;
     private JPanel p1;
-    private ReadBillData readBillData = new ReadBillData();
+    private ReadData readBillData = new ReadData();
 
-    public void setReadBillData(ReadBillData readBillData) {
+    public void setReadBillData(ReadData readBillData) {
         this.readBillData = readBillData;
     }
 

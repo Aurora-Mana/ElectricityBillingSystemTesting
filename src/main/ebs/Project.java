@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import javax.swing.*;
-
 public class Project extends JFrame implements ActionListener {
     private static final long serialVersionUID = 1L;
 

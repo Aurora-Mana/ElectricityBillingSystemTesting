@@ -55,6 +55,7 @@ public class TestCalculateBill {
     void testValidInputMockVer(){
         WriteFileMockB writeFileMockB = new WriteFileMockB();
         bill.setWriteFile(writeFileMockB);
+        bill.setBillUpdatedMsg(false);
 
         bill.c1.select("1001");
         bill.t1.setText("50");
@@ -84,6 +85,8 @@ public class TestCalculateBill {
     @Test
     void testInvalidInputForUnitConsumed() {
         // Set necessary values (e.g., Meter No and Units Consumed)
+        bill.setIncorrectInputMss(false);
+
         bill.setMeterNumber("1005");
         bill.setUnitsConsumed("abc");
         bill.setMonth("March");
@@ -94,7 +97,6 @@ public class TestCalculateBill {
 
 
 
-    // not sure if we need this since we always have something chosen for the month input - huerta
     @Test
     void testInvalidInputMissingMonth(){
         bill.setMeterNumber("1002");
