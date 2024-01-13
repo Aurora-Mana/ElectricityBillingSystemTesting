@@ -134,6 +134,30 @@ public class ProjectTest {
 
         assertDoesNotThrow(() -> project.actionPerformed(new ActionEvent(project, ActionEvent.ACTION_PERFORMED, "Notepad")));
         // Add assertions to verify the behavior or visibility of components related to "Notepad"
+        closeNotepad();
+    }
+
+    private void closeNotepad() {
+        String os = System.getProperty("os.name").toLowerCase();
+
+        try {
+            ProcessBuilder processBuilder;
+
+            if (os.contains("win")) {
+                // Windows
+                processBuilder = new ProcessBuilder("taskkill", "/F", "/IM", "notepad.exe");
+            } else if (os.contains("nix") || os.contains("nux") || os.contains("mac")) {
+                // Linux or macOS
+                processBuilder = new ProcessBuilder("pkill", "notepad");
+            } else {
+                throw new UnsupportedOperationException("Unsupported operating system");
+            }
+
+            Process process = processBuilder.start();
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();  // Handle exceptions as needed
+        }
     }
 
     @Test
@@ -141,14 +165,65 @@ public class ProjectTest {
         Project project = createProjectWithCustomMocks(null, null, null, null, null, null);
 
         assertDoesNotThrow(() -> project.actionPerformed(new ActionEvent(project, ActionEvent.ACTION_PERFORMED, "Calculator")));
+
+        closeCalculator();
     }
+    private void closeCalculator()  {
+        String os = System.getProperty("os.name").toLowerCase();
+
+        try {
+            ProcessBuilder processBuilder;
+
+            if (os.contains("win")) {
+                // Windows
+                processBuilder = new ProcessBuilder("taskkill", "/F", "/IM", "CalculatorApp.exe");
+            } else if (os.contains("nix") || os.contains("nux") || os.contains("mac")) {
+                // Linux or macOS
+                processBuilder = new ProcessBuilder("pkill", "notepad");
+            } else {
+                throw new UnsupportedOperationException("Unsupported operating system");
+            }
+
+            Process process = processBuilder.start();
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();  // Handle exceptions as needed
+        }
+    }
+
 
     @Test
     void actionPerformed_openApplicationWebBrowser() {
         Project project = createProjectWithCustomMocks(null, null, null, null, null, null);
 
         assertDoesNotThrow(() -> project.actionPerformed(new ActionEvent(project, ActionEvent.ACTION_PERFORMED, "Web Browser")));
+        //closeChrome();
     }
+
+    private void closeChrome()  {
+        String os = System.getProperty("os.name").toLowerCase();
+
+        try {
+            ProcessBuilder processBuilder;
+
+            if (os.contains("win")) {
+                // Windows
+                processBuilder = new ProcessBuilder("taskkill", "/F", "/IM", "chrome.exe");
+            } else if (os.contains("nix") || os.contains("nux") || os.contains("mac")) {
+                // Linux or macOS
+                processBuilder = new ProcessBuilder("pkill", "notepad");
+            } else {
+                throw new UnsupportedOperationException("Unsupported operating system");
+            }
+
+            Process process = processBuilder.start();
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();  // Handle exceptions as needed
+        }
+    }
+
+
 
     @Test
     void gettersReturnNonNullInstances() {

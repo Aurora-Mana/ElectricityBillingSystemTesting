@@ -12,6 +12,20 @@ public class CalculateBill extends JFrame implements ActionListener {
     public Choice c1, c2;
     private JButton b1,b2;
     JPanel p;
+
+    private boolean incorrectInputMss = true;
+
+    private boolean billUpdatedMsg = true;
+
+
+    public void setBillUpdatedMsg(boolean billUpdatedMsg) {
+        this.billUpdatedMsg = billUpdatedMsg;
+    }
+
+    public void setIncorrectInputMss(boolean incorrectInputMss) {
+        this.incorrectInputMss = incorrectInputMss;
+    }
+
     private WriteFileB writeFile = new WriteFileB(); // Initialize the WriteFile object directly
 
     public void setWriteFile(WriteFileB writeFile) {
@@ -164,7 +178,7 @@ public class CalculateBill extends JFrame implements ActionListener {
 
             try{
                 if (!b.matches("\\d+"))
-                    JOptionPane.showMessageDialog(null, "Units Consumed should contain only numbers.");
+                    incorrectInput();
             }catch (NumberFormatException e){
                 System.out.println(e.getMessage());
             }
@@ -178,7 +192,7 @@ public class CalculateBill extends JFrame implements ActionListener {
             try {
                 writeFile.writeBillData(Integer.parseInt(a), p1, c, p3);
                 /// When finished message bill updated will be shown
-                JOptionPane.showMessageDialog(null, "Bill Updated");
+                billUpdated();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -188,6 +202,18 @@ public class CalculateBill extends JFrame implements ActionListener {
         }
 
 
+    }
+
+    private void incorrectInput(){
+        if(incorrectInputMss){
+            JOptionPane.showMessageDialog(null, "Units Consumed should contain only numbers.");
+        }
+    }
+
+    private void billUpdated(){
+        if(billUpdatedMsg){
+            JOptionPane.showMessageDialog(null, "Bill Updated");
+        }
     }
 
     // Method to get the content of a file

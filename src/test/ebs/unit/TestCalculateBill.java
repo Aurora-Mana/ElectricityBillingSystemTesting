@@ -55,6 +55,8 @@ public class TestCalculateBill {
     void testValidInputMockVer(){
         WriteFileMockB writeFileMockB = new WriteFileMockB();
         bill.setWriteFile(writeFileMockB);
+        bill.setBillUpdatedMsg(false);
+
 
         bill.c1.select("1001");
         bill.t1.setText("50");
@@ -87,6 +89,7 @@ public class TestCalculateBill {
         bill.setMeterNumber("1005");
         bill.setUnitsConsumed("abc");
         bill.setMonth("March");
+        bill.setIncorrectInputMss(false);
 
         assertThrows(NumberFormatException.class,() -> {bill.getB1().doClick();});
     }

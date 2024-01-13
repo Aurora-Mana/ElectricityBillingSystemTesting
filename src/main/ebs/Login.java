@@ -15,11 +15,24 @@ public class Login extends JFrame implements ActionListener
     JPasswordField pf2;
     JButton b1,b2;
     JPanel p1,p2,p3,p4;
-    ReadUserData readUserData = new ReadUserData();
+    ReadData readUserData = new ReadData();
+    private boolean showMessageDialogs = true;
+    private Project project;
 
+    public Project getProject() {
+        return project;
+    }
+
+    public boolean getShowMessageDialogs(){
+        return showMessageDialogs;
+    }
+
+    public void setShowMessageDialogs(boolean showMessageDialogs){
+        this.showMessageDialogs=showMessageDialogs;
+    }
     JTextArea t1;
 
-    public void setReadUserData(ReadUserData readUserData) {
+    public void setReadUserData(ReadData readUserData) {
         this.readUserData = readUserData;
     }
 
@@ -93,32 +106,40 @@ public class Login extends JFrame implements ActionListener
     }
 
 
-    public void actionPerformed(ActionEvent ae){
-
-        if(ae.getSource() == b1) {
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource() == b1) {
             try {
                 String username = tf1.getText();
                 String password = pf2.getText();
-                boolean userFound = readUserData.readUserData(username, password);
+                boolean userFound = this.readUserData.readUserData(username, password);
 
                 if (userFound) {
-                    new Project(new CustomerDetails(),
+                    project = new Project(new CustomerDetails(),
                             new NewCustomer(),
                             new CalculateBill(),
                             new PayBill(),
                             new GenerateBill(),
-                            new LastBill()).setVisible(true);
+                            new LastBill());
+                    project.setVisible(true);
                     this.setVisible(false);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Invalid Login");
+                    // Call the method to handle invalid login
+                    invalidLoginAction();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Error: " + e);
             }
-        } else if (ae.getSource() == b2){
+        } else if (ae.getSource() == b2) {
             // Cancel button
             setVisible(false);
+        }
+    }
+
+    // New method to handle invalid login action
+    public void invalidLoginAction() {
+        if (showMessageDialogs) {
+            JOptionPane.showMessageDialog(null, "Invalid Login");
         }
     }
 

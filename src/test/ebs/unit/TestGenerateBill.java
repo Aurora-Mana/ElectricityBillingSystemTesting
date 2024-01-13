@@ -1,8 +1,6 @@
 package test.ebs.unit;
 
 import main.ebs.GenerateBill;
-import main.ebs.ReadBillData;
-import main.ebs.ReadBillDataMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
