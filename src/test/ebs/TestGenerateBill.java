@@ -63,24 +63,31 @@ public class TestGenerateBill {
     @Test
     public void testSuccessfulBillRetrieval() throws IOException {
         ReadData readBillData = new ReadData();
-        generateBill.getC1().select("1002");
-        generateBill.getC2().select("March");
+        generateBill.getC1().select("1001");
+        generateBill.getC2().select("January");
 
         ActionEvent actionEvent = new ActionEvent(generateBill.getB1(), ActionEvent.ACTION_PERFORMED, null);
         assertDoesNotThrow(() -> generateBill.actionPerformed(actionEvent));
 
-        String billData = readBillData.readAndFindBillData("March", "1002");
-        String meterNo = billData.split(",")[0].split(":")[1];
-        String month = billData.split(",")[1].split(":")[1];
-        String unitsConsumed = billData.split(",")[2].split(":")[1];
-        String total = billData.split(",")[3].split(":")[1];
+        String billData = readBillData.readAndFindBillData("January", "1001");
+        String[] billDataParts = billData.split(", ");
 
-        String expectedText = "\tReliance Power Limited\nELECTRICITY BILL FOR THE MONTH OF" + month + " ,2018\n\n\n" +
-                "Meter Number:" + meterNo + "\nMonth:" + month +"\nUnits Consumed: " + unitsConsumed + "\nTotal Charges:" + total +
-                "\n---------------------------------------------------------------\n";
+        if (!"Not found".equals(billData)) {
+            String meterNo = billDataParts[0].split(":")[1].trim();
+            String month = billDataParts[1].split(":")[1].trim();
+            String unitsConsumed = billDataParts[2].split(":")[1].trim();
+            String total = billDataParts[3].split(":")[1].trim();
 
-        assertEquals(expectedText, generateBill.getT1().getText());
+            String expectedText = "\tReliance Power Limited\nELECTRICITY BILL FOR THE MONTH OF " + month + " ,2018\n\n\n" +
+                    "Meter Number: " + meterNo + "\nMonth: " + month + "\nUnits Consumed:  " + unitsConsumed + "\nTotal Charges: " + total +
+                    "\n---------------------------------------------------------------\n";
+
+            assertEquals(expectedText, generateBill.getT1().getText());
+        } else {
+            fail("Bill not found for the selected criteria.");
+        }
     }
+
 
     @Test
     public void testSuccessfulBillRevivalMock() throws IOException {

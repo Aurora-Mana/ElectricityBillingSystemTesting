@@ -69,7 +69,7 @@ public class TestGUIGenerateBill {
             frame_GB.robot().pressAndReleaseKeys(KeyEvent.VK_ENTER, KeyEvent.VK_DOWN,KeyEvent.VK_DOWN );
             frame_GB.robot().pressAndReleaseKeys(KeyEvent.VK_ENTER);
 
-            ReadBillDataMock readBillDataMock = new ReadBillDataMock();
+            ReadDataMock readBillDataMock = new ReadDataMock();
             readBillDataMock.writeIntoFileInfo("1002", "March", "40","444");
             generateBill.setReadBillData(readBillDataMock);
 

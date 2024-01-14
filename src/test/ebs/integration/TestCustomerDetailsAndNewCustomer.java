@@ -30,18 +30,16 @@ public class TestCustomerDetailsAndNewCustomer {
         // Create a temporary file for testing
         tempFile = Files.createTempFile("testData", ".txt");
 
-        // Initialize NewCustomer and CustomerDetails with the temporary file
-        newCustomer = execute(() -> new NewCustomer(new BufferedWriter(Files.newBufferedWriter(tempFile))));
-        customerDetails = execute(() -> new CustomerDetails(new ReadData()));
-    }
-    @Test
-    void correctInfoDisplay() throws IOException {
         ReadDataMock readCustomerDataMock = new ReadDataMock();
         // Insert data
         readCustomerDataMock.writeIntoCustomerInfo("John", "1234", "Address1", "State1", "City1", "john@example.com", "1234567890");
 
-        customerDetails = new CustomerDetails(readCustomerDataMock);
-
+        // Initialize NewCustomer and CustomerDetails with the temporary file
+        newCustomer = execute(() -> new NewCustomer(new BufferedWriter(Files.newBufferedWriter(tempFile))));
+        customerDetails = execute(() -> new CustomerDetails(readCustomerDataMock));
+    }
+    @Test
+    void correctInfoDisplay() throws IOException {
         String[][] customerInfo = customerDetails.getCustomerData();
         String[][] actualNonNull = Arrays.stream(customerInfo)
                 .filter(row -> row != null)

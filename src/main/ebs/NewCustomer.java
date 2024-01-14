@@ -6,18 +6,35 @@ import javax.swing.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 
 public class NewCustomer extends JFrame implements ActionListener{
     public JLabel l1,l2,l3,l4,l5,l6,l7,l8;
     public JTextField t1,t2,t3,t4,t5,t6,t7;
     public JButton b1,b2;
 
+    public JButton getB1() {
+        return b1;
+    }
+
     private final BufferedWriter writer;
 
     private boolean showMessageDialogs = true;
 
+    private boolean emptyFieldsWarning = true;
+
+    private boolean wrongDataTypeWarning = true;
+
     public void setShowMessageDialogs(boolean showMessageDialogs) {
         this.showMessageDialogs = showMessageDialogs;
+    }
+
+    public void setEmptyFieldsWarning(boolean emptyFieldsWarning) {
+        this.emptyFieldsWarning = emptyFieldsWarning;
+    }
+
+    public void setWrongDataTypeWarning(boolean wrongDataTypeWarning) {
+        this.wrongDataTypeWarning = wrongDataTypeWarning;
     }
 
     public NewCustomer() throws IOException {
@@ -25,9 +42,9 @@ public class NewCustomer extends JFrame implements ActionListener{
 
     }
 
-    public NewCustomer(BufferedWriter writer) {
+    public NewCustomer(Writer writer) {
         super("Add Customer");
-        this.writer = writer;
+        this.writer = new BufferedWriter(writer);
         initialize();
     }
 
@@ -102,9 +119,10 @@ public class NewCustomer extends JFrame implements ActionListener{
         String customerInfo = getCustomerInfo();
 
         try {
-            writer.write(customerInfo);
-            writer.newLine();
-            writer.close();
+            if (customerInfo != null && writer != null) {
+                writer.write(customerInfo);
+                writer.newLine();
+            }
 
             successfulAddition();
             this.setVisible(false);
@@ -113,6 +131,7 @@ public class NewCustomer extends JFrame implements ActionListener{
             ex.printStackTrace();
         }
     }
+
 
     public void successfulAddition() {
         if (showMessageDialogs) {
@@ -128,15 +147,47 @@ public class NewCustomer extends JFrame implements ActionListener{
         String email = t6.getText();
         String phoneNumber = t7.getText();
 
+        // Validate that required fields are not empty
+        if (name.isEmpty() || meterNo.isEmpty() || address.isEmpty() || state.isEmpty() || city.isEmpty() || email.isEmpty() || phoneNumber.isEmpty()) {
+            emptyFields();
+            return null; // Validation failed, return null
+        }
+
+        // Validate that meterNo and phoneNumber are numbers
+        if (!isNumeric(meterNo) || !isNumeric(phoneNumber)) {
+            wrongDataType();
+            return null; // Validation failed, return null
+        }
+
         // Prepare the data to be written to the file
         return "Name: " + name + ", Meter No: " + meterNo + ", Address: " + address +
                 ", State: " + state + ", City: " + city + ", Email: " + email + ", Phone Number: " + phoneNumber;
     }
 
+    private boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public void emptyFields(){
+        if(emptyFieldsWarning){
+            JOptionPane.showMessageDialog(null, "Please fill in all required fields", "Validation Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void wrongDataType(){
+        if(wrongDataTypeWarning){
+            JOptionPane.showMessageDialog(null, "Meter No and Phone Number must be numeric", "Validation Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     public static void main(String[] args){
         SwingUtilities.invokeLater(() -> {
             try {
-                new NewCustomer().setVisible(true);
+                new NewCustomer(new FileWriter("customer_info.txt", true)).setVisible(true);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

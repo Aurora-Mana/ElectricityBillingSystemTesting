@@ -20,7 +20,7 @@ public class TestGUICostumerDetails {
         CustomerDetails customerDetails;
         private  FrameFixture frame_CD;
 
-        ReadCustomerDataMock readCustomerDataMock = new ReadCustomerDataMock();
+        ReadDataMock readCustomerDataMock = new ReadDataMock();
 
 
         @BeforeAll
