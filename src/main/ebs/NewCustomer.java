@@ -134,17 +134,19 @@ public class NewCustomer extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent ae) {
         String customerInfo = getCustomerInfo();
 
-        try {
-            if (customerInfo != null && writer != null) {
-                writer.write(customerInfo);
-                writer.newLine();
+        if (customerInfo != null) {
+            try {
+                if (writer != null) {
+                    writer.write(customerInfo);
+                    writer.newLine();
+                }
+
+                successfulAddition();
+                this.setVisible(false);
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
-
-            successfulAddition();
-            this.setVisible(false);
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
         }
     }
 
@@ -177,7 +179,9 @@ public class NewCustomer extends JFrame implements ActionListener{
 
         // Prepare the data to be written to the file
         return "Name: " + name + ", Meter No: " + meterNo + ", Address: " + address +
-                ", State: " + state + ", City: " + city + ", Email: " + email + ", Phone Number: " + phoneNumber;
+               ", State: " + state + ", City: " + city + ", Email: " + email + ", Phone Number: " + phoneNumber;
+
+
     }
 
     private boolean isNumeric(String str) {

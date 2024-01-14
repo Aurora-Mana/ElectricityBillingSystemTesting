@@ -1,43 +1,24 @@
 package test.ebs.system;
 
 import main.ebs.*;
-import org.assertj.swing.core.matcher.JButtonMatcher;
-import org.assertj.swing.core.matcher.JLabelMatcher;
-import org.assertj.swing.edt.GuiActionRunner;
-import org.assertj.swing.edt.GuiQuery;
-import org.assertj.swing.edt.GuiTask;
 import org.assertj.swing.fixture.FrameFixture;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-
-import javax.swing.*;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
-import org.assertj.swing.core.Robot;
 
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.swing.finder.WindowFinder.findDialog;
-import static org.assertj.swing.finder.WindowFinder.findFrame;
-import static org.assertj.swing.launcher.ApplicationLauncher.application;
 
 public class TestGUINewCustomer {
 
-    /*
+
     private FrameFixture frame;
-    private NewCustomer newCustomer;
+
     @BeforeEach
-    public void setUp() {
-        // Launch the application in the EDT (Event Dispatch Thread)
-        application(NewCustomerLauncher.class).start();
-
-        // Retrieve the NewCustomer frame
-        frame = findFrame(NewCustomer.class).using(robot());
+    public void setUp() throws IOException {
+        NewCustomer newCustomer = new NewCustomer();
+        frame = new FrameFixture( newCustomer);
     }
 
-    private Robot robot() {
-        return frame.robot();
-    }
 
     @AfterEach
     public void tearDown() {
@@ -45,58 +26,56 @@ public class TestGUINewCustomer {
     }
 
     @Test
-    void testLabels_Button(){
+    void testLabels(){
         frame.show();
         frame.requireVisible();
 
-        frame.button();
+        frame.label("l1").requireText("Name");
+        frame.label("l2").requireText("Meter No");
+        frame.label("l3").requireText("Address");
+        frame.label("l4").requireText("State");
+        frame.label("l5").requireText("City");
+        frame.label("l6").requireText("Email");
+        frame.label("l7").requireText("Phone Number");
     }
 
     @Test
-    public void testCancelButton() {
-        // Input some information
-        inputValidCustomerInfo();
+    void testButtons(){
+        frame.show();
+        frame.requireVisible();
 
-        // Click the "Cancel" button
-        frame.button(JButtonMatcher.withText("Cancel")).click();
-
-        // Assert that the frame is closed
-        frame.requireNotVisible();
-
-        // Verify that no customer information is written to the file (customize based on your application logic)
-        assertThat(getCustomerInfoFromFile()).doesNotContain("Name:");
+        frame.button("b1").requireText("Submit");
+        frame.button("b2").requireText("Cancel");
     }
 
     @Test
-    public void testEmptyFields() {
-        // Leave some or all text fields empty
-        // ...
+    void testTextFiled(){
+        frame.show();
+        frame.requireVisible();
 
-        // Click the "Submit" button
-        // ...
-
-        // Assert error message
-        // ...
-
-        // Verify that no customer information is written to the file
-        // ...
+        frame.textBox("t1").requireEditable();
+        frame.textBox("t2").requireEditable();
+        frame.textBox("t3").requireEditable();
+        frame.textBox("t4").requireEditable();
+        frame.textBox("t5").requireEditable();
+        frame.textBox("t6").requireEditable();
+        frame.textBox("t7").requireEditable();
     }
 
 
-    // Launcher class for the NewCustomer frame
-    public static class NewCustomerLauncher extends JFrame {
-        public static void main(String[] args) {
-            SwingUtilities.invokeLater(() -> {
-                try {
-                    new NewCustomer().setVisible(true);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-        }
+
+    @Test
+    public void testEmptyFieldsWarning() {
+        frame.show();
+        frame.requireVisible();
+        // Click the submit button without entering any information
+        frame.textBox("t1").enterText("A");
+        frame.button("b1").click();
+
+        // Assert that the empty fields warning dialog appears
+        frame.optionPane().requireMessage("Please fill in all required fields");
     }
 
-     */
 
 
 }
