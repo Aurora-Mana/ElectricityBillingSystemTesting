@@ -14,6 +14,10 @@ public class Project extends JFrame implements ActionListener {
     private GenerateBill generateBill;
     private LastBill lastBill;
 
+    public void setCalculateBill(CalculateBill calculateBill) {
+        this.calculateBill = calculateBill;
+    }
+
     public Project(
             CustomerDetails customerDetails,
             NewCustomer newCustomer,

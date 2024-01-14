@@ -15,6 +15,15 @@ public class LastBill extends JFrame implements ActionListener
     private Choice c1;
     private JPanel p1;
     private BufferedReader reader;
+    private String filePath ="";
+
+    public void setFilePath(String fileName) {
+        this.filePath = fileName;
+    }
+
+    public void setC1Value(String value) {
+        c1.select(value);
+    }
 
     public void setReader(BufferedReader reader) {
         this.reader = reader;
@@ -88,7 +97,7 @@ public class LastBill extends JFrame implements ActionListener
 
     public void actionPerformed(ActionEvent ae) {
         try {
-            reader = new BufferedReader(new FileReader("bill_info.txt"));
+            reader = new BufferedReader(new FileReader(filePath));
             String meterNumber = c1.getSelectedItem();
             String lastBill = findLastBill(reader, meterNumber);
             reader.close();

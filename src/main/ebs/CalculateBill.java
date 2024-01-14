@@ -249,13 +249,13 @@ public class CalculateBill extends JFrame implements ActionListener {
 
     }
 
-    private void incorrectInput(){
+    public void incorrectInput(){
         if(incorrectInputMss){
             JOptionPane.showMessageDialog(null, "Units Consumed should contain only numbers.");
         }
     }
 
-    private void billUpdated(){
+    public void billUpdated(){
         if(billUpdatedMsg){
             JOptionPane.showMessageDialog(null, "Bill Updated");
         }
