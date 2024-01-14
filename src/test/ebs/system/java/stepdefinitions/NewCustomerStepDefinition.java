@@ -180,7 +180,7 @@ public class NewCustomerStepDefinition {
         String[][] actualNonNull = Arrays.stream(customerInfo)
                 .filter(row -> row != null)
                 .filter(row -> Arrays.stream(row).noneMatch(cell -> cell == null || cell.equals("null")))
-                .toArray(String[][]::new);
+                .toArray(String[][]::new);e
         // Directly compare the actual and expected arrays
         assertThat(actualNonNull.equals(new String[][]{
                 {"John", "1234", "Address1", "State1", "City1", "john@example.com", "1234567890"}
