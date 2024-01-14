@@ -56,9 +56,13 @@ public class Login extends JFrame implements ActionListener
     {
         super("Login Page");
         l1=new JLabel("User Name");
+        l1.setName("l1");
         l2=new JLabel("Password");
+        l2.setName("l2");
         tf1=new JTextField(15);
+        tf1.setName("tf1");
         pf2=new JPasswordField(15);
+        pf2.setName("pf2");
 
         ImageIcon ic1=new ImageIcon(ClassLoader.getSystemResource("images/login.jpg"));
         Image i1=ic1.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT);
@@ -69,13 +73,16 @@ public class Login extends JFrame implements ActionListener
         b2=new JButton("Cancel",new ImageIcon(i2));
 
         b1.addActionListener(this);
+        b1.setName("b1");
         b2.addActionListener(this);
+        b2.setName("b2");
 
         ImageIcon ic3=new ImageIcon(ClassLoader.getSystemResource("images/pop2.jpg"));
         Image i3=ic3.getImage().getScaledInstance(340,370,Image.SCALE_DEFAULT);
         ImageIcon icc3=new ImageIcon(i3);
 
         l3=new JLabel(icc3);
+        l3.setName("l3");
 
         setLayout(new BorderLayout());
 

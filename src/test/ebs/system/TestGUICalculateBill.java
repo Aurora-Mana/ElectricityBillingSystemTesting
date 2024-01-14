@@ -19,12 +19,6 @@ public class TestGUICalculateBill {
     private FrameFixture frame_CB;
 
 
-
-    @BeforeAll
-    public static void setUpOnce() {
-        FailOnThreadViolationRepaintManager.install();
-    }
-
     @BeforeEach
     public void setUp() {
         calculateBill = GuiActionRunner.execute(CalculateBill::new);

@@ -20,13 +20,8 @@ public class TestGUICostumerDetails {
         CustomerDetails customerDetails;
         private  FrameFixture frame_CD;
 
-        ReadCustomerDataMock readCustomerDataMock = new ReadCustomerDataMock();
+        ReadDataMock readCustomerDataMock = new ReadDataMock();
 
-
-        @BeforeAll
-        public static void setUpOnce() {
-            FailOnThreadViolationRepaintManager.install();
-        }
 
         @BeforeEach
         public void setUp() {

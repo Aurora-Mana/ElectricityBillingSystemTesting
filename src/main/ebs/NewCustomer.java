@@ -44,30 +44,44 @@ public class NewCustomer extends JFrame implements ActionListener{
         t1 = new JTextField();
         p.add(l1);
         p.add(t1);
+        l1.setName("l1");
+        t1.setName("t1");
         l2 = new JLabel("Meter No");
         t2 = new JTextField();
         p.add(l2);
         p.add(t2);
+        l2.setName("l2");
+        t2.setName("t2");
         l3 = new JLabel("Address");
         t3 = new JTextField();
         p.add(l3);
         p.add(t3);
+        l3.setName("l3");
+        t3.setName("t3");
         l4 = new JLabel("State");
         t4 = new JTextField();
         p.add(l4);
         p.add(t4);
+        l4.setName("l4");
+        t4.setName("t4");
         l5 = new JLabel("City");
         t5 = new JTextField();
         p.add(l5);
         p.add(t5);
+        l5.setName("l5");
+        t5.setName("t5");
         l6 = new JLabel("Email");
         t6 = new JTextField();
         p.add(l6);
         p.add(t6);
+        l6.setName("l6");
+        t6.setName("t6");
         l7 = new JLabel("Phone Number");
         t7 = new JTextField();
         p.add(l7);
         p.add(t7);
+        l7.setName("l7");
+        t7.setName("t7");
 
         b1 = new JButton("Submit");
         b2 = new JButton("Cancel");
@@ -96,6 +110,8 @@ public class NewCustomer extends JFrame implements ActionListener{
 
         b1.addActionListener(this);
         b2.addActionListener(this);
+        b1.setName("b1");
+        b2.setName("b2");
     }
 
     public void actionPerformed(ActionEvent ae) {

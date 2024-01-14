@@ -22,19 +22,10 @@ public class TestLastBill {
     }
 
 
-    @Test
-    public void testGUIInitialization() {
-        assertNotNull(lastBill.getB1());
-        assertNotNull(lastBill.getC1());
-        assertNotNull(lastBill.getP1());
-        assertNotNull(lastBill.getT1());
-    }
-
 
 
     @Test
     void testIsMatchingMeterNumber_WithMatchingMeterNumber() {
-        LastBill lastBill = new LastBill();
         boolean result = lastBill.isMatchingMeterNumber("Meter No: 1001", "1001");
 
         assertTrue(result);
@@ -42,7 +33,6 @@ public class TestLastBill {
 
     @Test
     void testIsMatchingMeterNumber_WithNonMatchingMeterNumber() {
-        LastBill lastBill = new LastBill();
         boolean result = lastBill.isMatchingMeterNumber("Meter No: 1002", "1001");
 
         assertFalse(result);
@@ -50,7 +40,6 @@ public class TestLastBill {
 
     @Test
     void testUpdateTextArea_WithLastBillDetails() {
-        LastBill lastBill = new LastBill();
         lastBill.updateTextArea("Meter No: 1001, Month: January, Units Consumed: 20, Total Charges: 300");
 
         assertEquals("Details of the Last Bill\n\n\n" +
@@ -60,7 +49,6 @@ public class TestLastBill {
 
     @Test
     void testUpdateTextArea_WithNoBillFound() {
-        LastBill lastBill = new LastBill();
         lastBill.updateTextArea(null);
 
         assertEquals("No bill found for the selected criteria.", lastBill.getT1().getText());

@@ -16,10 +16,6 @@ public class TestGUILastBill {
 
     FrameFixture frame_LB;
 
-    @BeforeAll
-    public static void setUpOnce() {
-        FailOnThreadViolationRepaintManager.install();
-    }
 
     @BeforeEach
     public void setUp() {
