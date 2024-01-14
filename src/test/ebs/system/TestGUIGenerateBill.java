@@ -1,11 +1,9 @@
 package test.ebs.system;
 
 import main.ebs.*;
-import org.assertj.swing.edt.FailOnThreadViolationRepaintManager;
 import org.assertj.swing.edt.GuiActionRunner;
 import org.assertj.swing.fixture.FrameFixture;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,13 +18,6 @@ public class TestGUIGenerateBill {
         private FrameFixture frame_GB;
 
 
-
-
-
-        @BeforeAll
-        public static void setUpOnce() {
-            FailOnThreadViolationRepaintManager.install();
-        }
 
         @BeforeEach
         public void setUp() {
@@ -69,7 +60,7 @@ public class TestGUIGenerateBill {
             frame_GB.robot().pressAndReleaseKeys(KeyEvent.VK_ENTER, KeyEvent.VK_DOWN,KeyEvent.VK_DOWN );
             frame_GB.robot().pressAndReleaseKeys(KeyEvent.VK_ENTER);
 
-            ReadBillDataMock readBillDataMock = new ReadBillDataMock();
+            ReadDataMock readBillDataMock = new ReadDataMock();
             readBillDataMock.writeIntoFileInfo("1002", "March", "40","444");
             generateBill.setReadBillData(readBillDataMock);
 

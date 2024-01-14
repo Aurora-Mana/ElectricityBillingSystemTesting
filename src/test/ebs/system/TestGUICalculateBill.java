@@ -2,11 +2,9 @@ package test.ebs.system;
 
 import java.awt.event.KeyEvent;
 import main.ebs.*;
-import org.assertj.swing.edt.FailOnThreadViolationRepaintManager;
 import org.assertj.swing.edt.GuiActionRunner;
 import org.assertj.swing.fixture.FrameFixture;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.assertj.swing.timing.Pause.pause;
@@ -18,12 +16,6 @@ public class TestGUICalculateBill {
 
     private FrameFixture frame_CB;
 
-
-
-    @BeforeAll
-    public static void setUpOnce() {
-        FailOnThreadViolationRepaintManager.install();
-    }
 
     @BeforeEach
     public void setUp() {

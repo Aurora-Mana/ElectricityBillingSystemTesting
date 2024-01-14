@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import javax.swing.*;
-
 public class Project extends JFrame implements ActionListener {
     private static final long serialVersionUID = 1L;
 
@@ -48,6 +47,7 @@ public class Project extends JFrame implements ActionListener {
         JMenuItem m2 = new JMenuItem("Customer Details");
         JMenuItem m3 = new JMenuItem("Deposit Details");
         master.setForeground(Color.BLUE);
+        master.setName("master");
 
 
         /* ---- Customer Details ---- */
@@ -82,6 +82,10 @@ public class Project extends JFrame implements ActionListener {
         m2.addActionListener(this);
         m3.addActionListener(this);
 
+        m1.setName("m1");
+        m2.setName("m2");
+        m3.setName("m3");
+
         // --------------------------------------------------------------------------------------------
 
 
@@ -91,6 +95,7 @@ public class Project extends JFrame implements ActionListener {
         JMenuItem u2 = new JMenuItem("Calculate Bill");
         JMenuItem u3 = new JMenuItem("Last Bill");
         user.setForeground(Color.RED);
+        user.setName("user");
 
         /* ---- Pay Bill ---- */
         u1.setFont(new Font("monospaced",Font.PLAIN,12));
@@ -123,6 +128,10 @@ public class Project extends JFrame implements ActionListener {
         u2.addActionListener(this);
         u3.addActionListener(this);
 
+        u1.setName("u1");
+        u2.setName("u2");
+        u3.setName("u3");
+
 
         // ---------------------------------------------------------------------------------------------
 
@@ -130,6 +139,7 @@ public class Project extends JFrame implements ActionListener {
         JMenu report = new JMenu("Report");
         JMenuItem r1 = new JMenuItem("Generate Bill");
         report.setForeground(Color.BLUE);
+        report.setName("report");
 
         /* ---- Report ---- */
         r1.setFont(new Font("monospaced",Font.PLAIN,12));
@@ -141,6 +151,7 @@ public class Project extends JFrame implements ActionListener {
         r1.setBackground(Color.WHITE);
 
         r1.addActionListener(this);
+        r1.setName("r1");
 
         // -----------------------------------------------------------------------------------------------
 
@@ -150,6 +161,7 @@ public class Project extends JFrame implements ActionListener {
         JMenuItem ut2 = new JMenuItem("Calculator");
         JMenuItem ut3 = new JMenuItem("Web Browser");
         utility.setForeground(Color.RED);
+        utility.setName("utility");
 
         /* ---- Calender ---- */
         ut1.setFont(new Font("monospaced",Font.PLAIN,12));
@@ -183,12 +195,17 @@ public class Project extends JFrame implements ActionListener {
         ut2.addActionListener(this);
         ut3.addActionListener(this);
 
+        ut1.setName("ut1");
+        ut2.setName("ut2");
+        ut3.setName("ut3");
+
         // ---------------------------------------------------------------------------------------
 
         /*Fifth Column */
         JMenu exit = new JMenu("Exit");
         JMenuItem ex = new JMenuItem("Exit");
         exit.setForeground(Color.BLUE);
+        exit.setName("exit");
 
         /* ---- Exit ---- */
         ex.setFont(new Font("monospaced",Font.PLAIN,12));
@@ -201,6 +218,7 @@ public class Project extends JFrame implements ActionListener {
 
         ex.addActionListener(this);
 
+        ex.setName("ex");
 
         // ---------------------------------------------------------------------------------------------
 
@@ -321,4 +339,32 @@ public class Project extends JFrame implements ActionListener {
     public LastBill getLastBill() {
         return lastBill;
     }
+
+
+
+    public boolean isNewCustomerPanelVisible() {
+        return newCustomer.isVisible();
+    }
+
+    public boolean isCustomerDetailsPanelVisible() {
+        return customerDetails.isVisible();
+    }
+
+    public boolean isCalculatedBillPanelVisible() {
+        return calculateBill.isVisible();
+    }
+
+    public boolean isLastBillPanelVisible() {
+        return lastBill.isVisible();
+    }
+
+    public boolean isGeneratedBillPanelVisible() {
+        return generateBill.isVisible();
+    }
+
+    public boolean isPayBillVisible() {
+        return payBill.isVisible();
+    }
+
+
 }

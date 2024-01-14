@@ -1,26 +1,27 @@
 package test.ebs.system;
 
 import main.ebs.*;
-import org.assertj.swing.core.matcher.JButtonMatcher;
-import org.assertj.swing.core.matcher.JLabelMatcher;
-import org.assertj.swing.core.matcher.JTextComponentMatcher;
+
 import org.assertj.swing.edt.GuiActionRunner;
 import org.assertj.swing.edt.GuiQuery;
 import org.assertj.swing.fixture.FrameFixture;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestGUIProject {
 
     private FrameFixture frame;
+    Project project;
+
+
 
     @BeforeEach
     public void setUp() {
-        Project project = GuiActionRunner.execute(new GuiQuery<Project>() {
+        project = GuiActionRunner.execute(new GuiQuery<Project>() {
             protected Project executeInEDT() throws IOException {
                 return new Project(
                         new CustomerDetails(),
@@ -33,8 +34,8 @@ public class TestGUIProject {
             }
         });
 
+
         frame = new FrameFixture(project);
-        frame.show();
     }
 
     @AfterEach
@@ -43,62 +44,91 @@ public class TestGUIProject {
     }
 
     @Test
-    public void testCustomerDetailsMenuItem() {
-        frame.menuItem("Customer Details").click();
-        frame.dialog("CustomerDetails").requireVisible();
+    void testMasterMenu(){
+        frame.show();
+        frame.requireVisible();
+
+        frame.menuItem("master").isEnabled();
+        frame.menuItem("m1").isEnabled();
+        frame.menuItem("m2").isEnabled();
+
+        // Check that when menu item m1/New Customer is clicked
+        // the user goes to the new customer panel
+        frame.menuItem("m1").click();
+        assertTrue(project.isNewCustomerPanelVisible());
+
+        // Check that when menu item m2/Customer Details is clicked
+        // the user goes to the customer details panel
+        frame.menuItem("m2").click();
+        assertTrue(project.isCustomerDetailsPanelVisible());
+    }
+
+
+    @Test
+    void testUserMenu(){
+        frame.show();
+        frame.requireVisible();
+
+        frame.menuItem("user").isEnabled();
+        frame.menuItem("u1").isEnabled();
+        frame.menuItem("u2").isEnabled();
+        frame.menuItem("u3").isEnabled();
+
+        // Check that when menu item u1 is clicked
+        // the user goes to the pay bill window
+        frame.menuItem("u1").click();
+        assertTrue(project.isPayBillVisible());
+
+        // Check that when menu item u2  is clicked
+        // the user goes to the calculate bill window
+        frame.menuItem("u2").click();
+        assertTrue(project.isCalculatedBillPanelVisible());
+
+        // Check that when menu item u3 is clicked
+        // the user goes to the last bill window
+        frame.menuItem("u3").click();
+        assertTrue(project.isLastBillPanelVisible());
+
+    }
+
+
+    @Test
+    void testReportMenu(){
+        frame.show();
+        frame.requireVisible();
+
+        frame.menuItem("report").isEnabled();
+        frame.menuItem("r1").isEnabled();
+
+        //check that when u click r1 class Generate bill is displayed
+        frame.menuItem("r1").click();
+        assertTrue(project.isGeneratedBillPanelVisible());
+
     }
 
     @Test
-    public void testNewCustomerMenuItem() {
-        frame.menuItem("New Customer").click();
-        frame.dialog("NewCustomer").requireVisible();
+    void testUtilityMenu(){
+        frame.show();
+        frame.requireVisible();
+
+        frame.menuItem("utility").isEnabled();
+        frame.menuItem("u1").isEnabled();
+        frame.menuItem("u2").isEnabled();
+        frame.menuItem("u3").isEnabled();
+
     }
 
     @Test
-    public void testCalculateBillMenuItem() {
-        frame.menuItem("Calculate Bill").click();
-        frame.dialog("CalculateBill").requireVisible();
+    void testExitMenu(){
+        frame.show();
+        frame.requireVisible();
+
+        frame.menuItem("exit").isEnabled();
+        frame.menuItem("ex").isEnabled();
+
     }
 
-    @Test
-    public void testPayBillMenuItem() {
-        frame.menuItem("Pay Bill").click();
-        frame.dialog("PayBill").requireVisible();
-    }
 
-    @Test
-    public void testGenerateBillMenuItem() {
-        frame.menuItem("Generate Bill").click();
-        frame.dialog("GenerateBill").requireVisible();
-    }
 
-    @Test
-    public void testLastBillMenuItem() {
-        frame.menuItem("Last Bill").click();
-        frame.dialog("LastBill").requireVisible();
-    }
 
-    @Test
-    public void testNotepadMenuItem() {
-        frame.menuItem("Notepad").click();
-        // Add assertions for Notepad, for example, check if it is running
-    }
-
-    @Test
-    public void testCalculatorMenuItem() {
-        frame.menuItem("Calculator").click();
-        // Add assertions for Calculator, for example, check if it is running
-    }
-
-    @Test
-    public void testWebBrowserMenuItem() {
-        frame.menuItem("Web Browser").click();
-        // Add assertions for Web Browser, for example, check if it is running
-    }
-
-    @Test
-    public void testExitMenuItem() {
-        frame.menuItem("Exit").click();
-        frame.requireNotVisible();
-    }
 }

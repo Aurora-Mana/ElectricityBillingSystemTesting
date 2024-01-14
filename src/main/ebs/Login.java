@@ -15,11 +15,24 @@ public class Login extends JFrame implements ActionListener
     JPasswordField pf2;
     JButton b1,b2;
     JPanel p1,p2,p3,p4;
-    ReadUserData readUserData = new ReadUserData();
+    ReadData readUserData = new ReadData();
+    private boolean showMessageDialogs = true;
+    private Project project;
 
+    public Project getProject() {
+        return project;
+    }
+
+    public boolean getShowMessageDialogs(){
+        return showMessageDialogs;
+    }
+
+    public void setShowMessageDialogs(boolean showMessageDialogs){
+        this.showMessageDialogs=showMessageDialogs;
+    }
     JTextArea t1;
 
-    public void setReadUserData(ReadUserData readUserData) {
+    public void setReadUserData(ReadData readUserData) {
         this.readUserData = readUserData;
     }
 
@@ -43,9 +56,13 @@ public class Login extends JFrame implements ActionListener
     {
         super("Login Page");
         l1=new JLabel("User Name");
+        l1.setName("l1");
         l2=new JLabel("Password");
+        l2.setName("l2");
         tf1=new JTextField(15);
+        tf1.setName("tf1");
         pf2=new JPasswordField(15);
+        pf2.setName("pf2");
 
         ImageIcon ic1=new ImageIcon(ClassLoader.getSystemResource("images/login.jpg"));
         Image i1=ic1.getImage().getScaledInstance(50,50,Image.SCALE_DEFAULT);
@@ -56,13 +73,16 @@ public class Login extends JFrame implements ActionListener
         b2=new JButton("Cancel",new ImageIcon(i2));
 
         b1.addActionListener(this);
+        b1.setName("b1");
         b2.addActionListener(this);
+        b2.setName("b2");
 
         ImageIcon ic3=new ImageIcon(ClassLoader.getSystemResource("images/pop2.jpg"));
         Image i3=ic3.getImage().getScaledInstance(340,370,Image.SCALE_DEFAULT);
         ImageIcon icc3=new ImageIcon(i3);
 
         l3=new JLabel(icc3);
+        l3.setName("l3");
 
         setLayout(new BorderLayout());
 
@@ -93,32 +113,40 @@ public class Login extends JFrame implements ActionListener
     }
 
 
-    public void actionPerformed(ActionEvent ae){
-
-        if(ae.getSource() == b1) {
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource() == b1) {
             try {
                 String username = tf1.getText();
                 String password = pf2.getText();
-                boolean userFound = readUserData.readUserData(username, password);
+                boolean userFound = this.readUserData.readUserData(username, password);
 
                 if (userFound) {
-                    new Project(new CustomerDetails(),
+                    project = new Project(new CustomerDetails(),
                             new NewCustomer(),
                             new CalculateBill(),
                             new PayBill(),
                             new GenerateBill(),
-                            new LastBill()).setVisible(true);
+                            new LastBill());
+                    project.setVisible(true);
                     this.setVisible(false);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Invalid Login");
+                    // Call the method to handle invalid login
+                    invalidLoginAction();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Error: " + e);
             }
-        } else if (ae.getSource() == b2){
+        } else if (ae.getSource() == b2) {
             // Cancel button
             setVisible(false);
+        }
+    }
+
+    // New method to handle invalid login action
+    public void invalidLoginAction() {
+        if (showMessageDialogs) {
+            JOptionPane.showMessageDialog(null, "Invalid Login");
         }
     }
 
