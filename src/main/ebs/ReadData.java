@@ -46,11 +46,11 @@ public class ReadData {
         BufferedReader reader = new BufferedReader(new FileReader("bill_info.txt"));
         String line;
         while ((line = reader.readLine()) != null) {
-            String[] billData = line.split(", "); // Adjust this based on the actual format in your file
+            String[] billData = line.split(", ");
 
             System.out.println("Checking line: " + line);
 
-            if (billData[0].startsWith("Meter No: " + meterNumber) && billData[1].startsWith("Month: " + month)) {
+            if (billData.length >= 2 && billData[0].startsWith("Meter No: " + meterNumber) && billData[1].startsWith("Month: " + month)) {
                 System.out.println("Match found!");
                 reader.close();
                 return line;
@@ -60,4 +60,5 @@ public class ReadData {
         reader.close();
         return "Not found";
     }
+
 }
