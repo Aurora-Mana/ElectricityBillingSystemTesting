@@ -3,16 +3,20 @@ package main.ebs;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.io.Serial;
 import javax.swing.*;
 public class Project extends JFrame implements ActionListener {
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    private CustomerDetails customerDetails;
-    private NewCustomer newCustomer;
-    private CalculateBill calculateBill;
-    private PayBill payBill;
-    private GenerateBill generateBill;
-    private LastBill lastBill;
+    private final CustomerDetails customerDetails;
+    private final NewCustomer newCustomer;
+    private final CalculateBill calculateBill;
+    private final PayBill payBill;
+    private final GenerateBill generateBill;
+    private final LastBill lastBill;
+
+    private final JMenu utilityMenu;
 
     public Project(
             CustomerDetails customerDetails,
@@ -156,14 +160,14 @@ public class Project extends JFrame implements ActionListener {
         // -----------------------------------------------------------------------------------------------
 
         /* Fourth Column*/
-        JMenu utility = new JMenu("Utility");
+        utilityMenu = new JMenu("Utility");
         JMenuItem ut1 = new JMenuItem("Notepad");
         JMenuItem ut2 = new JMenuItem("Calculator");
         JMenuItem ut3 = new JMenuItem("Web Browser");
-        utility.setForeground(Color.RED);
-        utility.setName("utility");
+        utilityMenu.setForeground(Color.RED);
+        utilityMenu.setName("utility");
 
-        /* ---- Calender ---- */
+        /* ---- Notepad ---- */
         ut1.setFont(new Font("monospaced",Font.PLAIN,12));
         ImageIcon icon8 = new ImageIcon(ClassLoader.getSystemResource("images/icon12.png"));
         Image image8 = icon8.getImage().getScaledInstance(20, 20,Image.SCALE_DEFAULT);
@@ -233,16 +237,16 @@ public class Project extends JFrame implements ActionListener {
 
         report.add(r1);
 
-        utility.add(ut1);
-        utility.add(ut2);
-        utility.add(ut3);
+        utilityMenu.add(ut1);
+        utilityMenu.add(ut2);
+        utilityMenu.add(ut3);
 
         exit.add(ex);
 
         mb.add(master);
         mb.add(user);
         mb.add(report);
-        mb.add(utility);
+        mb.add(utilityMenu);
         mb.add(exit);
 
         setJMenuBar(mb);
@@ -364,6 +368,10 @@ public class Project extends JFrame implements ActionListener {
 
     public boolean isPayBillVisible() {
         return payBill.isVisible();
+    }
+
+    public JMenu getUtilityMenu() {
+        return utilityMenu;
     }
 
 
