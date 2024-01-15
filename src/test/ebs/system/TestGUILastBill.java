@@ -79,7 +79,7 @@ public class TestGUILastBill {
 
 
         frame_LB.robot().click(lastBill.getC1());
-        frame_LB.robot().pressAndReleaseKeys(KeyEvent.VK_DOWN);
+        frame_LB.robot().pressAndReleaseKeys(KeyEvent.VK_DOWN,KeyEvent.VK_DOWN,KeyEvent.VK_DOWN, KeyEvent.VK_DOWN);
         frame_LB.robot().pressAndReleaseKeys(KeyEvent.VK_ENTER);
 
 

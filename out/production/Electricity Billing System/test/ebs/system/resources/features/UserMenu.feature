@@ -33,3 +33,4 @@ Feature: User Menu
     When User opens Last Bill
     And User enters valid data for Last Bill
     Then Bill info should be displayed
+

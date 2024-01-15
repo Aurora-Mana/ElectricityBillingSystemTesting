@@ -11,7 +11,7 @@ public class Project extends JFrame implements ActionListener {
 
     private final CustomerDetails customerDetails;
     private final NewCustomer newCustomer;
-    private final CalculateBill calculateBill;
+    private CalculateBill calculateBill;
     private final PayBill payBill;
     private final GenerateBill generateBill;
     private final LastBill lastBill;

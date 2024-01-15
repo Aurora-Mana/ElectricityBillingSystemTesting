@@ -34,5 +34,3 @@ Feature: User Menu
     And User enters valid data for Last Bill
     Then Bill info should be displayed
 
-
-  Scenario:

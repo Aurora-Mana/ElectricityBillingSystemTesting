@@ -53,7 +53,7 @@ public class LastBill extends JFrame implements ActionListener
     public LastBill(){
         setSize(500,900);
         setLayout(new BorderLayout());
-
+        filePath ="bill_info.txt";
         p1 = new JPanel();
 
         l1 = new JLabel("Generate Bill");
