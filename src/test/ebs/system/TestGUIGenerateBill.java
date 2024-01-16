@@ -66,8 +66,17 @@ public class TestGUIGenerateBill {
 
             frame_GB.button("b1").click();
 
-            String expectedBillText = "\tReliance Power Limited\nELECTRICITY BILL FOR THE MONTH OF March ,2018\n\n\n" +
-                    "Meter Number: 1002\nMonth: March\nUnits Consumed: 40\nTotal Charges: 444\n---------------------------------------------------------------\n";
+            String expectedBillText = """
+                    \tReliance Power Limited
+                    ELECTRICITY BILL FOR THE MONTH OF March ,2018
+
+
+                    Meter Number: 1002
+                    Month: March
+                    Units Consumed: 40
+                    Total Charges: 444
+                    ---------------------------------------------------------------
+                    """;
 
 
             // Get the text from the JTextArea

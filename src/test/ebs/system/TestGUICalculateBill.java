@@ -65,10 +65,6 @@ public class TestGUICalculateBill {
 
         frame_CB.textBox("t1").enterText("50");
 
-
-
-        pause(1000);
-        // Click the "Submit" button
         frame_CB.button("b1").click();
 
         frame_CB.optionPane().requireMessage("Bill Updated");

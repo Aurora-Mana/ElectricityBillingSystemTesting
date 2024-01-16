@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class NewCustomerTest {
 
@@ -51,7 +50,7 @@ public class NewCustomerTest {
         newCustomer.t7.setText("+355123456789");
         newCustomer.setWrongDataTypeWarning(false); // Ensuring the warning table doesn't pop up
 
-        assertEquals(null, newCustomer.getCustomerInfo());
+        assertNull(newCustomer.getCustomerInfo());
 
     }
     @Test
@@ -65,7 +64,7 @@ public class NewCustomerTest {
         newCustomer.t7.setText("+355123456789");
         newCustomer.setEmptyFieldsWarning(false); // Ensuring the warning table doesn't pop up
 
-        assertEquals(null, newCustomer.getCustomerInfo());
+        assertNull(newCustomer.getCustomerInfo());
 
     }
 

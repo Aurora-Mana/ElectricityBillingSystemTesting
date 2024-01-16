@@ -41,6 +41,7 @@ public class NewCustomer extends JFrame implements ActionListener{
     }
 
     public NewCustomer(){
+        super("Add Customer");
         initialize();
 
     }
@@ -127,8 +128,6 @@ public class NewCustomer extends JFrame implements ActionListener{
         b2.setName("b2");
 
         writeFileB = new WriteFileB();
-
-        this.setVisible(true);
     }
 
     public void actionPerformed(ActionEvent ae) {
@@ -212,7 +211,7 @@ public class NewCustomer extends JFrame implements ActionListener{
     }
     public static void main(String[] args){
         SwingUtilities.invokeLater(() -> {
-            new NewCustomer();
+            new NewCustomer().setVisible(true);
         });
     }
 }

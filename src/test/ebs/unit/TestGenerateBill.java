@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.event.ActionEvent;
-import java.io.IOException;
+
 
 import static org.assertj.swing.edt.GuiActionRunner.execute;
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,12 +39,17 @@ public class TestGenerateBill {
 
         generateBill.actionPerformed(null);
 
-        String expectedText = "\tReliance Power Limited\nELECTRICITY BILL FOR THE MONTH OF January ,2018\n\n\n" +
-                "Meter Number: 1001\n" +
-                "Month: January\n" +
-                "Units Consumed: 100\n" +
-                "Total Charges: $50\n" +
-                "---------------------------------------------------------------\n";
+        String expectedText = """
+                \tReliance Power Limited
+                ELECTRICITY BILL FOR THE MONTH OF January ,2018
+
+
+                Meter Number: 1001
+                Month: January
+                Units Consumed: 100
+                Total Charges: $50
+                ---------------------------------------------------------------
+                """;
 
         assertEquals(expectedText, generateBill.getT1().getText());
     }

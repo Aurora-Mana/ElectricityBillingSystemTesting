@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
 import static org.assertj.swing.edt.GuiActionRunner.execute;
@@ -24,15 +26,16 @@ public class TestCalculateBill {
         bill = execute(CalculateBill::new);
         bill.setVisible(false);
     }
+
     @Test
-    void testInvalidMeterNoNoLessThan1001(){
-        assertFalse(bill.getMeterNumber()<1001);
+    void testInvalidMeterNoNoLessThan1001() {
+        assertFalse(bill.getMeterNumber() < 1001);
     }
 
     @Test
-    void testInvalidMeterNoNoMoreThan1010(){
+    void testInvalidMeterNoNoMoreThan1010() {
 
-        assertFalse(bill.getMeterNumber()>1010);
+        assertFalse(bill.getMeterNumber() > 1010);
     }
 
     @Test
@@ -54,7 +57,7 @@ public class TestCalculateBill {
     }
 
     @Test
-    void testValidInputMockVer(){
+    void testValidInputMockVer() {
         WriteFileMockB writeFileMockB = new WriteFileMockB();
         bill.setWriteFile(writeFileMockB);
         bill.setBillUpdatedMsg(false);
@@ -91,13 +94,12 @@ public class TestCalculateBill {
         bill.setMonth("March");
         bill.setIncorrectInputMss(false);
 
-        assertThrows(NumberFormatException.class,() -> {bill.getB1().doClick();});
+        assertThrows(NumberFormatException.class, () -> bill.getB1().doClick());
     }
 
 
-
     @Test
-    void testInvalidInputMissingMonth(){
+    void testInvalidInputMissingMonth() {
         bill.setMeterNumber("1002");
         bill.setUnitsConsumed("30");
         bill.setMonth("");
@@ -118,12 +120,54 @@ public class TestCalculateBill {
     }
 
 
-
     @Test
     void testGetFileContentEmptyFile() {
         String fileName = "bill_info.txt";
         String actualContent = bill.getFileContent(fileName);
         assertNotEquals("", actualContent, "File content should be empty for an empty file");
+    }
+
+    @Test
+    void testCorrectFormula() {
+        WriteFileMockB writeFileMockB = new WriteFileMockB();
+        bill.setWriteFile(writeFileMockB);
+        bill.setBillUpdatedMsg(false);
+
+
+        bill.c1.select("1001");
+        bill.t1.setText("50");
+        bill.c2.select("January");
+
+        // Perform action
+        bill.getB1().doClick();
+
+        // Verify that the writeBillData method was called with the correct parameters
+        String fileInfo = writeFileMockB.getFileInfo();
+        assertTrue(fileInfo.contains("Meter No: 1001, Month: January, Units Consumed: 50, Total Charges:"));
+
+
+        assertEquals(50, (extractTotalChargeFromContent(fileInfo) - 234) / 7);
+    }
+
+
+    private int extractTotalChargeFromContent(String fileContent) {
+        // Define a regular expression pattern to match the "Total Charges" line
+        String totalCharges = "Total Charges: (\\d+)";
+
+        // Create a pattern matcher
+        Pattern totalChargePattern = Pattern.compile(totalCharges);
+        Matcher matcher = totalChargePattern.matcher(fileContent);
+
+        if (matcher.find()) {
+
+            String totalChargeValue = matcher.group(1);
+
+            // Convert the extracted value to an integer
+            return Integer.parseInt(totalChargeValue);
+        } else {
+            return 0;
+        }
+
     }
 }
 

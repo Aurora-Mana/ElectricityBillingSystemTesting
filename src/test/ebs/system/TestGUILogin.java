@@ -7,7 +7,6 @@ import org.assertj.swing.fixture.FrameFixture;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.io.IOException;
 
 
 public class TestGUILogin {
@@ -43,7 +42,7 @@ public class TestGUILogin {
 
 
     @Test
-    void testLoginAndNavigateToHomePage() throws IOException {
+    void testLoginAndNavigateToHomePage(){
         frame.show(); // Display the frame for testing
         frame.requireVisible(); // Ensure that the frame is visible
 
@@ -57,7 +56,7 @@ public class TestGUILogin {
         frame.button("b1").click();
 
         //assert that we are no longer in login window
-        frame.requireNotVisible();
+         frame.requireNotVisible();
     }
 
 

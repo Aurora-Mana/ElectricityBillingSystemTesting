@@ -6,8 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 
-import static org.assertj.swing.edt.GuiActionRunner.execute;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -51,7 +51,7 @@ public class TestCustomerDetails {
         // Insert individuals into the string that we will use for mocking
         customerDetails.setReadD(readCustomerDataMock); // Set the reader to the mock reader
         customerDetails.readDataFromFile();
-        System.out.println(customerDetails.getCustomerData());
+        System.out.println(Arrays.deepToString(customerDetails.getCustomerData()));
         String[][] customerData = customerDetails.getCustomerData();
         for (int i = 0; i < 1; i++) {
             for (int j = 0; j < 7; j++) {

@@ -58,8 +58,16 @@ public class TestGUILastBill {
 
 
         // Assert the content of the text area based on the expected behavior
-        String expectedText = "Details of the Last Bill\n\n\n"+
-                "Meter No: 1001\nMonth: January\nUnits Consumed: 213\nTotal Charges: 1725\n---------------------------------------------------------------\n"; // Add expected content
+        String expectedText = """
+                Details of the Last Bill
+
+
+                Meter No: 1001
+                Month: January
+                Units Consumed: 213
+                Total Charges: 1725
+                ---------------------------------------------------------------
+                """; // Add expected content
 
         // Get the text from the JTextArea
         String actualText = lastBill.getT1().getText();

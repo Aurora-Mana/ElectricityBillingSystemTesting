@@ -8,7 +8,6 @@ import org.assertj.swing.fixture.FrameFixture;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,8 +20,8 @@ public class TestGUIProject {
 
     @BeforeEach
     public void setUp() {
-        project = GuiActionRunner.execute(new GuiQuery<Project>() {
-            protected Project executeInEDT() throws IOException {
+        project = GuiActionRunner.execute(new GuiQuery<>() {
+            protected Project executeInEDT(){
                 return new Project(
                         new CustomerDetails(),
                         new NewCustomer(),
