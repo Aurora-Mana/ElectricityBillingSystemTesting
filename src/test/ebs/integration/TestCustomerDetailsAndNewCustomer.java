@@ -1,9 +1,6 @@
 package test.ebs.integration;
 
-import main.ebs.CustomerDetails;
-import main.ebs.NewCustomer;
-import main.ebs.ReadData;
-import main.ebs.ReadDataMock;
+import main.ebs.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,17 +22,22 @@ public class TestCustomerDetailsAndNewCustomer {
     private NewCustomer newCustomer;
     private Path tempFile;
 
+    private WriteFileB writeFileB;
+
+    private ReadDataMock readCustomerDataMock;
+
     @BeforeEach
     void setUp() throws IOException {
         // Create a temporary file for testing
         tempFile = Files.createTempFile("testData", ".txt");
 
-        ReadDataMock readCustomerDataMock = new ReadDataMock();
+        writeFileB = new WriteFileMockB();
+        readCustomerDataMock = new ReadDataMock();
         // Insert data
         readCustomerDataMock.writeIntoCustomerInfo("John", "1234", "Address1", "State1", "City1", "john@example.com", "1234567890");
 
         // Initialize NewCustomer and CustomerDetails with the temporary file
-        newCustomer = execute(() -> new NewCustomer(new BufferedWriter(Files.newBufferedWriter(tempFile))));
+        newCustomer = execute(() -> new NewCustomer());
         customerDetails = execute(() -> new CustomerDetails(readCustomerDataMock));
     }
     @Test
@@ -51,20 +53,6 @@ public class TestCustomerDetailsAndNewCustomer {
         }));
     }
 
-    private static boolean compareData(String[][] expected, String[][] actual) {
-        if (expected.length != actual.length || expected[0].length != actual[0].length) {
-            return false;
-        }
-
-        for (int i = 0; i < expected.length; i++) {
-            for (int j = 0; j < expected[0].length; j++) {
-                if (!expected[i][j].equals(actual[i][j])) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
     @Test
     void testIntegrationBetweenNewCustomerAndCustomerDetails() {
         // Add a new customer using NewCustomer
@@ -76,6 +64,7 @@ public class TestCustomerDetailsAndNewCustomer {
     }
 
     private void addCustomer(String name, String meterNo, String address, String state, String city, String email, String phone) {
+        newCustomer.setWriteFileB(writeFileB);
         execute(() -> {
             newCustomer.setShowMessageDialogs(false); // Disable message dialogs during testing
             newCustomer.t1.setText(name);

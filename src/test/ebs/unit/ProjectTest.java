@@ -229,11 +229,7 @@ public class ProjectTest {
     void gettersReturnNonNullInstances() {
         CustomerDetails customerDetails = new CustomerDetails();
         NewCustomer newCustomer;
-        try {
-            newCustomer = new NewCustomer();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        newCustomer = new NewCustomer();
         CalculateBill calculateBill = new CalculateBill();
         PayBill payBill = new PayBill();
         GenerateBill generateBill = new GenerateBill();

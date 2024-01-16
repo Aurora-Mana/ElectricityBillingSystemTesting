@@ -4,6 +4,12 @@ import java.awt.*;
 import javax.swing.*;
 public class Splash
 {
+    private static Login login;
+
+    public static Login getLogin() {
+        return login;
+    }
+
     public static void main(String args[])
     {
         fframe f1=new fframe();
@@ -29,6 +35,7 @@ public class Splash
         public fframe()
         {
             super("Electricity Billing System");
+            login = new Login();
             this.setVisible(true);
             setLayout(new FlowLayout());
             ImageIcon c1=new ImageIcon(ClassLoader.getSystemResource("images/splash.jpg"));
@@ -47,7 +54,7 @@ public class Splash
             {
                 Thread.sleep(7000);
                 this.setVisible(false);
-                new Login().setVisible(true);
+                login.setVisible(true);
             }
             catch (Exception e)
             {

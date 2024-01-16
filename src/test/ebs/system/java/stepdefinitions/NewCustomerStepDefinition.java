@@ -32,18 +32,12 @@ public class NewCustomerStepDefinition {
             isEmptyFieldsCalled = false;
         }
 
-        public NewCustomerMock(Writer writer) {
-            super(writer);
-            isInvalidInformationCalled =false;
-            isEmptyFieldsCalled = false;
-        }
-
         @Override
         public void wrongDataType(){
             isInvalidInformationCalled = true;
         }
 
-        public boolean isInvalidInformationCalled() {
+        public boolean getIsInvalidInformationCalled() {
             return isInvalidInformationCalled;
         }
 
@@ -51,7 +45,7 @@ public class NewCustomerStepDefinition {
         public void emptyFields(){
             isEmptyFieldsCalled = true;
         }
-        public boolean isEmptyFieldsCalled() {
+        public boolean getIsEmptyFieldsCalled() {
             return isEmptyFieldsCalled;
         }
     }
@@ -73,7 +67,7 @@ public class NewCustomerStepDefinition {
 
         // Initialize NewCustomer and CustomerDetails with the temporary file
         newCustomer = execute(() -> {
-            NewCustomerMock customer = new NewCustomerMock(new BufferedWriter(Files.newBufferedWriter(tempFile)));
+            NewCustomerMock customer = new NewCustomerMock();
             customer.setShowMessageDialogs(false); // Disable message dialogs during testing
             return customer;
         });
@@ -82,7 +76,7 @@ public class NewCustomerStepDefinition {
     }
     @When("User submits correct info format")
     public void userSubmitsCorrectInfo(){
-
+        newCustomer.setWriteFileB(new WriteFileMockB());
         newCustomer.setShowMessageDialogs(false); // Disable message dialogs during testing
         newCustomer.t1.setText("John");
         newCustomer.t2.setText("1234");
@@ -117,7 +111,7 @@ public class NewCustomerStepDefinition {
 
     @Then("The NewCustomer page wrong data type warning displays")
     public void theNewCustomerPageTypeWarningPop(){
-        assertTrue(newCustomer.isInvalidInformationCalled());
+        assertTrue(newCustomer.getIsInvalidInformationCalled());
     }
 
 

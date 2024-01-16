@@ -2,6 +2,8 @@ package main.ebs;
 
 public class WriteFileMockB extends WriteFileB {
     private StringBuilder fileInfo = new StringBuilder();
+    private StringBuilder userInfo = new StringBuilder();
+
 
     @Override
     public void writeBillData(int a, int b, String c, int p3) {
@@ -14,5 +16,14 @@ public class WriteFileMockB extends WriteFileB {
 
     public String getFileInfo() {
         return fileInfo.toString();
+    }
+
+    @Override
+    public void writeUserData(String data) {
+        userInfo.append(data);
+    }
+
+    public StringBuilder getUserInfo() {
+        return userInfo;
     }
 }

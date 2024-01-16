@@ -241,6 +241,7 @@ public class CalculateBill extends JFrame implements ActionListener {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            setVisible(false);
         } else if (ae.getSource() == b2) {
             // Cancel button
             setVisible(false);

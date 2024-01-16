@@ -12,5 +12,7 @@
     <orderEntry type="library" name="junit.jupiter" level="project" />
     <orderEntry type="library" name="assertj.swing" level="project" />
     <orderEntry type="library" name="io.cucumber.java" level="project" />
+    <orderEntry type="library" name="pitest.junit5.plugin" level="project" />
+    <orderEntry type="library" name="pitest" level="project" />
   </component>
 </module>

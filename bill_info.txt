@@ -1,2 +1,5 @@
 Meter No: 1001, Month: January, Units Consumed: 213, Total Charges: 1725
 Meter No: 1001, Month: January, Units Consumed: 50, Total Charges: 584
+Meter No: 1001, Month: May, Units Consumed: 65, Total Charges: 689
+Meter No: 1001, Month: January, Units Consumed: 80, Total Charges: 794
+

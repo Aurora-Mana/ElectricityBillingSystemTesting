@@ -6,6 +6,7 @@ Feature: Use Utilities in the Electric Billing System
     And the user clicks on Notepad
     Then Notepad should be executed
 
+
   Scenario: Open Calculator
     Given the EBS app is open
     When the user clicks on Utility menu

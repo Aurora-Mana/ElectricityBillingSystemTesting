@@ -13,11 +13,10 @@ public class NewCustomer extends JFrame implements ActionListener{
     public JTextField t1,t2,t3,t4,t5,t6,t7;
     public JButton b1,b2;
 
+    private WriteFileB writeFileB;
     public JButton getB1() {
         return b1;
     }
-
-    private final BufferedWriter writer;
 
     private boolean showMessageDialogs = true;
 
@@ -37,17 +36,14 @@ public class NewCustomer extends JFrame implements ActionListener{
         this.wrongDataTypeWarning = wrongDataTypeWarning;
     }
 
-    public NewCustomer() throws IOException {
-            this(new BufferedWriter(new FileWriter("customer_info.txt", true)));
-
+    public void setWriteFileB(WriteFileB writeFileB) {
+        this.writeFileB = writeFileB;
     }
 
-    public NewCustomer(Writer writer) {
-        super("Add Customer");
-        this.writer = new BufferedWriter(writer);
+    public NewCustomer(){
         initialize();
-    }
 
+    }
     public void initialize() {
         setLocation(350,200);
         setSize(650,600);
@@ -129,26 +125,36 @@ public class NewCustomer extends JFrame implements ActionListener{
         b2.addActionListener(this);
         b1.setName("b1");
         b2.setName("b2");
+
+        writeFileB = new WriteFileB();
+
+        this.setVisible(true);
     }
 
     public void actionPerformed(ActionEvent ae) {
-        String customerInfo = getCustomerInfo();
 
-        if (customerInfo != null) {
-            try {
-                if (writer != null) {
-                    writer.write(customerInfo);
-                    writer.newLine();
+
+        if (ae.getSource() == b1) {
+            String customerInfo = getCustomerInfo();
+
+            if (customerInfo != null) {
+                try {
+                    String data = getCustomerInfo();
+                    writeFileB.writeUserData(data);
+                    successfulAddition();
+                    this.setVisible(false);
+
+                } catch (IOException ex) {
+                    // Temporarily remove this catch block to see detailed exception details
+                    // ex.printStackTrace();
+                    System.out.println("Error writing to file: " + ex.getMessage());
                 }
-
-                successfulAddition();
-                this.setVisible(false);
-
-            } catch (IOException ex) {
-                ex.printStackTrace();
             }
-        }
+        } else if (ae.getSource() == b2)
+            setVisible(false);
+
     }
+
 
 
     public void successfulAddition() {
@@ -179,7 +185,7 @@ public class NewCustomer extends JFrame implements ActionListener{
 
         // Prepare the data to be written to the file
         return "Name: " + name + ", Meter No: " + meterNo + ", Address: " + address +
-               ", State: " + state + ", City: " + city + ", Email: " + email + ", Phone Number: " + phoneNumber;
+                ", State: " + state + ", City: " + city + ", Email: " + email + ", Phone Number: " + phoneNumber;
 
 
     }
@@ -206,11 +212,7 @@ public class NewCustomer extends JFrame implements ActionListener{
     }
     public static void main(String[] args){
         SwingUtilities.invokeLater(() -> {
-            try {
-                new NewCustomer(new FileWriter("customer_info.txt", true)).setVisible(true);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            new NewCustomer();
         });
     }
 }
